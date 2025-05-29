@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Materi - Belajar Sholat</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&family=Montserrat:wght@700&family=Poppins&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0b3d02; /* Dark Green */
+      color: #f8f1d4; /* Soft Cream */
+      overflow-x: hidden;
+    }
+
+    /* Islamic geometric pattern background overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at center, rgba(248,241,212,0.03) 1px, transparent 1px),
+                  radial-gradient(circle at center, rgba(248,241,212,0.03) 1px, transparent 1px);
+      background-position: 0 0, 25px 25px;
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Container for content */
+    .container {
+      position: relative;
+      max-width: 900px;
+      margin: 60px auto 40px auto;
+      background: rgba(11, 61, 2, 0.85);
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px 6px rgba(248, 241, 212, 0.2);
+      border: 2px solid #f8f1d4;
+      z-index: 1;
+    }
+
+    /* Heading styles */
+    h1, h2 {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      color: #f8f1d4;
+      text-align: center;
+      text-shadow: 0 0 12px #d4af37af;
+      user-select: none;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 5px;
+      margin-top: 0;
+    }
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    /* Paragraph styles */
+    p {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: #f8f1d4cc;
+      margin-bottom: 1.3rem;
+      user-select: text;
+    }
+
+    /* Quran verse block */
+    .quran-verse {
+      background-color: rgba(244, 203, 7, 0.1);
+      border-left: 8px solid #d4af37;
+      padding: 25px 30px;
+      border-radius: 12px;
+      margin-top: 30px;
+      font-style: italic;
+      color: #f4ecae;
+      box-shadow: 0 0 18px 4px #d4af37a8;
+    }
+    .quran-verse p {
+      margin-bottom: 10px;
+      font-size: 1.18rem;
+      color: #f0df7b;
+    }
+    .quran-verse span {
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #fff8cc;
+      display: block;
+      letter-spacing: 0.05em;
+      user-select: text;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #0b3d02dd;
+      padding: 20px 0;
+      text-align: center;
+      z-index: 10;
+      box-shadow: 0 3px 15px rgba(212,175,55,0.7);
+    }
+    header h1 {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f8f1d4;
+      text-shadow: 0 0 8px #d4af37aa;
+      margin: 0;
+      user-select: none;
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 700px) {
+      .container {
+        padding: 30px 25px;
+        margin: 80px 20px 40px 20px;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      p, .quran-verse p, .quran-verse span {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Materi Sholat</h1>
+  </header>
+  <main class="container" role="main">
+    <h2>Pengertian Shalat</h2>
+    <p>
+      Shalat dari bahasa Arab As-sholah, menurut Bahasa / Etimologi berarti Do’a dan secara terminology/istilah, para ahli fiqh mengartikan secara lahir dan hakiki.
+    </p>
+    <p>
+      Secara lahiriah shalat berarti beberapa ucapan dan perbuatan yang dimulai dengan takbir dan diakhiri dengan salam, yang dengannya kita beribadah kepada Allah menurut syarat-syarat yang telah ditentukan.
+    </p>
+    <p>
+      Adapun secara hakikinya ialah berhadapan hati (jiwa) kepada Allah, secara yang mendatangkan takut kepada-Nya serta menumbuhkan di dalam jiwa rasa kebesaran-Nya atau mendhohirkan hajat dan keperluan kita kepada Allah yang kita sembah dengan perkataan dan pekerjaan atau kedua-duanya.
+    </p>
+    <section class="quran-verse" aria-label="Ayat Quran Surah Al-Ankabut ayat 45">
+      <p>Sebagaimana perintah-Nya dalam surah Al-Ankabut ayat 45:</p>
+      <span>
+        "Bacalah apa yang telah diwahyukan kepadamu, yaitu Al-Kitab (Al-Quran) dan dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan-perbuatan) keji dan mungkar. Dan sesungguhnya mengingat Allah (shalat) adalah lebih besar (keutamaannya dari ibadat-ibadat yang lain). Dan Allah mengetahui apa yang kamu kerjakan."
+      </span>
+    </section>
+  </main>
+</body>
+</html>

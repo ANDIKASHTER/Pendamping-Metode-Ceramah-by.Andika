@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Belajar Sholat - Pendamping Metode Ceramah - by Andika Bayu Saputra</title>
+  <style>
+    /* Google Fonts - Montserrat and Poppins */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      background: rgba(255 255 255 / 0.1);
+      padding: 60px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      backdrop-filter: blur(15px);
+      animation: fadeIn 1.2s ease forwards;
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    .author {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: rgba(255 255 255 / 0.8);
+      margin-bottom: 50px;
+      letter-spacing: 1.2px;
+      font-style: italic;
+    }
+    .btn-start {
+      background: #f6c90e;
+      color: #2c2c2c;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 18px 40px;
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 10px 20px rgba(246,201,14,0.6);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .btn-start:hover {
+      background: #ddb700;
+      box-shadow: 0 15px 30px rgba(221,183,0,0.9);
+      transform: translateY(-3px);
+    }
+    @keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(50px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Halaman utama belajar sholat">
+    <h1>Belajar Sholat</h1>
+    <div class="author"> Pendamping Metode Ceramah (by Andika Bayu Saputra : 2310110088)</div>
+    <button class="btn-start" onclick="location.href='main.html'">Mulai Menjelajah</button>
+<a href="https://wa.me/6282136500435" target="_blank" style="
+  position: fixed;
+  bottom: -130px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FFD700;
+  color: black;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  z-index: 9999;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;"
+  onmouseover="this.style.backgroundColor='#FFC700'; this.style.transform='translateX(-50%) scale(1.05)'; this.style.boxShadow='0 0 12px rgba(255, 215, 0, 0.7)';"
+  onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateX(-50%)'; this.style.boxShadow='0 0 8px rgba(255, 215, 0, 0.6)';"
+>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" style="width: 20px; height: 20px;">
+  <span>Contact Me</span>
+</a><!-- Tombol About Me -->
+<button onclick="toggleAbout()" style="
+  position: fixed;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FFD700;
+  color: black;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 0 12px rgba(255, 223, 0, 0.6);
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+">
+  About Me
+</button>
+
+<!-- Wrapper dengan outline gradasi -->
+<div style="
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  padding: 3px;
+  border-radius: 20px;
+  background: linear-gradient(270deg, #00f, #f0f, #00f);
+  background-size: 600% 600%;
+  animation: gradientBorder 8s linear infinite;
+  width: 90vw;
+  max-width: 800px;
+  max-height: 90vh;
+" id="aboutMePopup">
+
+  <!-- Isi pop-up -->
+  <div style="
+    background: white;
+    border-radius: 16px;
+    padding: 40px 20px 80px;
+    font-family: 'Segoe UI', sans-serif;
+    color: black;
+    overflow-y: auto;
+    max-height: 90vh;
+    text-align: center;
+  ">
+
+  <img src="https://i.imgur.com/FbE40l2.jpeg" alt="Foto Andika" style="
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #ccc;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  ">
+
+  <p style="font-size: 16px; line-height: 1.6; max-width: 700px; margin: auto; text-align: justify;">
+    <strong>Assalamualaikum warahmatullahi wabarokatuh</strong><br><br>
+    Halo rekan-rekan! Nama saya <strong>Andika Bayu Saputra</strong>, Anak dari orang tua saya yang saat ini baru berumur 19 tahun. Sekarang, saya sedang menempuh pendidikan di UIN Sunan Kudus. Di tahun 2025 ini saya baru semester 4 masih muda bukan hehehe..!.<br><br>
+    Website ini dibuat sebagai tugas mata kuliah <strong>"Literasi Media dan Teknologi Pembelajaran PAI"</strong> yang diampu oleh <strong>Dr. Ashif Az Zafi, M.Pd.I.</strong><br><br>
+    Harapan saya, guru-guru PAI bisa memanfaatkan media digital (salah satunya website) untuk pendamping metode ceramah. Maka dari itu saya beri nama website ini <strong>"Pendamping Metode Ceramah"</strong>.
+  </p>
+  <style>
+@keyframes gradientBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+</style>
+
+  <button onclick="toggleAbout()" style="
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 12px rgba(255, 77, 77, 0.7);
+    z-index: 10001;
+  ">
+    Tutup
+  </button>
+
+</div>
+
+<script>
+  function toggleAbout() {
+    const popup = document.getElementById('aboutMePopup');
+    if (popup.style.display === 'block') {
+      popup.style.display = 'none';
+    } else {
+      popup.style.display = 'block';
+    }
+  }
+</script>
+  </div>
+</body>
+</html>
+

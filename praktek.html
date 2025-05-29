@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Praktek Sholat - Belajar Sholat</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&family=Montserrat:wght@700&family=Poppins&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: #f8f1d4;
+      overflow-x: hidden;
+    }
+
+    /* Background mosque silhouette overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1511201682020-1c1c1c1c1c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1920') no-repeat center center/cover;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      max-width: 900px;
+      margin: 60px auto 40px auto;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px 6px rgba(248, 241, 212, 0.2);
+      border: 2px solid #d4af37;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px 0;
+      text-align: center;
+      z-index: 10;
+      box-shadow: 0 3px 15px rgba(212, 175, 55, 0.7);
+    }
+
+    header h1 {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f8f1d4;
+      text-shadow: 0 0 8px #d4af37aa;
+      margin: 0;
+      user-select: none;
+    }
+
+    main {
+      flex-grow: 1;
+      margin-top: 80px;
+      color: #f8f1d4;
+    }
+
+    h2 {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: #d4af37;
+      text-shadow: 0 0 12px rgba(212, 175, 55, 0.9);
+      margin-bottom: 25px;
+      user-select: none;
+      text-align: center;
+    }
+
+    .image-container,
+    .video-container {
+      margin-bottom: 35px;
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 20px 5px rgba(212, 175, 55, 0.25);
+      background: rgba(244, 203, 7, 0.08);
+    }
+
+    .image-container img {
+      width: 100%;
+      display: block;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+
+    /* Responsive iframe wrapper for video */
+    .video-container iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      border-radius: 15px;
+      display: block;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding: 30px 25px;
+        margin: 80px 20px 40px 20px;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .video-container iframe {
+        height: 260px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Praktek Sholat</h1>
+  </header>
+  <main class="container" role="main">
+    <h2>Praktik Sholat dengan Gambar dan Video</h2>
+
+    <section class="image-container" aria-label="Foto praktek sholat">
+      <img src="https://muslimkecil.com/wp-content/uploads/2022/08/poster-shalat.png" alt="Gambar praktek sholat" />
+    </section>
+
+    <section class="video-container" aria-label="Video praktek sholat YouTube">
+      <iframe src="https://www.youtube.com/embed/3uBYcivkgNY?si=SFk4v6sdY79fVf6u" title="Video praktek sholat" allowfullscreen
+        loading="lazy" referrerpolicy="no-referrer"></iframe>
+    </section>
+  </main>
+</body>
+
+</html>

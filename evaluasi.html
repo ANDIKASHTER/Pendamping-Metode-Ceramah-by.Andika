@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evaluasi Sholat - Belajar Sholat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo&family=Montserrat:wght@700&family=Poppins&display=swap');
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+            color: #333;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 60px auto 40px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5rem;
+            color: #00796b;
+            user-select: none;
+        }
+
+        /* Question container */
+        .question-container {
+            flex-grow: 1;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #004d40;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 140px;
+            font-size: 1.1rem;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #00796b;
+            resize: vertical;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 8px;
+        }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: #00796b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:disabled {
+            background-color: #b2dfdb;
+            cursor: not-allowed;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #004d40;
+        }
+
+        /* Progress Indicator */
+        .progress {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #00796b;
+            font-size: 1.1rem;
+            user-select: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 0 25px #00796baa;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #00796b;
+            font-weight: 700;
+            user-select: none;
+        }
+
+        .modal-content button {
+            background-color: #d32f2f;
+            padding: 10px 25px;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #9a2222;
+        }
+
+        /* Result */
+        .result-container {
+            display: none;
+            text-align: center;
+        }
+
+        .result-container.active {
+            display: block;
+        }
+
+        .result-score {
+            font-size: 2.1rem;
+            color: #00796b;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .result-message {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .question-text,
+            .options label,
+            textarea {
+                font-size: 1rem;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                max-width: 90vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Evaluasi Sholat</h1>
+    </header>
+    <main class="container" role="main">
+        <div class="progress" id="progressText">Pertanyaan 1 dari 15</div>
+        <form id="evalForm" autocomplete="off">
+            <div class="question-container" id="questionContainer"></div>
+            <div class="nav-buttons">
+                <button type="button" id="prevBtn" disabled>Previous</button>
+                <button type="button" id="nextBtn">Next</button>
+            </div>
+        </form>
+
+        <div class="result-container" id="resultContainer" aria-live="polite" role="region" tabindex="0">
+            <div class="result-score" id="finalScore"></div>
+            <div class="result-message">Terima kasih telah menyelesaikan evaluasi! Jawaban essay akan dikoreksi secara manual dan dikirim ke WhatsApp Anda.</div>
+        </div>
+    </main>
+
+    <!-- Warning Modal -->
+    <div class="modal" id="warningModal" role="alertdialog" aria-modal="true" aria-labelledby="modalTitle"
+        aria-describedby="modalDesc">
+        <div class="modal-content">
+            <p id="modalDesc">Hayolo kamu nyontek yaa. Kerjakan dari awal yaa!</p>
+            <button id="resetBtn">Mulai Ulang</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { type: 'mcq', question: 'Secara etimologis (bahasa), kata “shalat” berasal dari bahasa Arab ash-shalah yang berarti …', options: { A: 'Bersuci', B: 'Doa', C: 'Tunduk', D: 'Berserah diri' }, answer: 'B' },
+            { type: 'mcq', question: 'Secara terminologi, shalat secara lahiriah berarti …', options: { A: 'Membaca Al-Qur’an di waktu malam', B: 'Doa yang diucapkan setelah berwudhu', C: 'Ucapan dan perbuatan yang dimulai dengan takbir dan diakhiri dengan salam', D: 'Perbuatan yang dilakukan setelah sholat' }, answer: 'C' },
+            { type: 'mcq', question: 'Makna hakiki dari shalat adalah …', options: { A: 'Perbuatan badan yang menunjukkan ketundukan', B: 'Berhadapan hati kepada Allah dengan rasa takut dan harap kepada-Nya', C: 'Menghafal gerakan sholat', D: 'Menundukkan kepala di hadapan manusia' }, answer: 'B' },
+            { type: 'mcq', question: 'Perintah tentang kewajiban shalat terdapat dalam surat …', options: { A: 'Al-Baqarah ayat 183', B: 'Al-Anfal ayat 1', C: 'Al-Ankabut ayat 45', D: 'Al-Fatihah ayat 1' }, answer: 'C' },
+            { type: 'mcq', question: 'Sholat yang menjadi kewajiban pribadi setiap muslim disebut dengan …', options: { A: 'Sholat Sunnah', B: 'Fardhu Kifayah', C: 'Fardhu ‘Ain', D: 'Sholat Nadzar' }, answer: 'C' },
+            { type: 'mcq', question: 'Yang termasuk sholat fardhu ‘ain adalah …', options: { A: 'Sholat gerhana', B: 'Sholat tahajjud', C: 'Sholat jenazah', D: 'Sholat lima waktu' }, answer: 'D' },
+            { type: 'mcq', question: 'Sholat yang wajib dilakukan oleh sebagian umat Islam, dan jika sudah dilakukan oleh sebagian maka yang lain tidak berdosa disebut …', options: { A: 'Fardhu ‘Ain', B: 'Fardhu Kifayah', C: 'Sunnah Muakkad', D: 'Sunnah Ghairu Muakkad' }, answer: 'B' },
+            { type: 'mcq', question: 'Berikut ini yang termasuk sholat sunnah rawatib adalah …', options: { A: 'Sholat sebelum dan sesudah sholat fardhu', B: 'Sholat jenazah', C: 'Sholat istikharah', D: 'Sholat dhuha' }, answer: 'A' },
+            { type: 'mcq', question: 'Sholat yang dilakukan setelah sholat isya dan jumlahnya ganjil disebut …', options: { A: 'Sholat Tahajjud', B: 'Sholat Witir', C: 'Sholat Dhuha', D: 'Sholat Hajat' }, answer: 'B' },
+            { type: 'mcq', question: 'Sholat sunnah yang dilakukan ketika umat Islam meminta hujan disebut …', options: { A: 'Sholat Istikharah', B: 'Sholat Tarawih', C: 'Sholat Istisqa', D: 'Sholat Tahiyyatul Masjid' }, answer: 'C' },
+            { type: 'essay', question: 'Jelaskan perbedaan antara makna shalat secara lahiriah dan hakiki menurut para ulama fiqh!', answer: '' },
+            { type: 'essay', question: 'Sebutkan dua jenis sholat wajib dan berikan contoh masing-masing!', answer: '' },
+            { type: 'essay', question: 'Mengapa sholat memiliki kedudukan penting dalam Islam sebagaimana dijelaskan dalam QS. Al-Ankabut ayat 45? Jelaskan!', answer: '' },
+            { type: 'essay', question: 'Uraikan tiga contoh sholat sunnah dan jelaskan waktu pelaksanaannya!', answer: '' },
+            { type: 'essay', question: 'Apa manfaat dari mengerjakan sholat sunnah seperti tahajjud, dhuha, atau witir dalam kehidupan sehari-hari?', answer: '' },
+        ];
+
+        let currentQuestionIndex = 0;
+        const totalQuestions = questions.length;
+
+        const questionContainer = document.getElementById('questionContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressText = document.getElementById('progressText');
+        const evalForm = document.getElementById('evalForm');
+        const resultContainer = document.getElementById('resultContainer');
+        const finalScore = document.getElementById('finalScore');
+        const modal = document.getElementById('warningModal');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Flag to show modal only once per cheating event batch
+        let modalShown = false;
+
+        function showQuestion(index) {
+            progressText.textContent = `Pertanyaan ${index + 1} dari ${totalQuestions}`;
+            const q = questions[index];
+            questionContainer.innerHTML = '';
+
+            if (q.type === 'mcq') {
+                const questionText = document.createElement('p');
+                questionText.className = 'question-text';
+                questionText.textContent = `${index + 1}. ${q.question}`;
+                questionContainer.appendChild(questionText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+
+                for (const [key, value] of Object.entries(q.options)) {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = 'option';
+                    input.value = key;
+                    input.required = true;
+
+                    if (q.userAnswer && q.userAnswer === key) {
+                        input.checked = true;
+                    }
+
+                    input.addEventListener('change', () => {
+                        q.userAnswer = input.value;
+                    });
+
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(` ${key}. ${value}`));
+                    optionsDiv.appendChild(label);
+                }
+                questionContainer.appendChild(optionsDiv);
+            } else if (q.type === 'essay') {
+                const questionText = document.createElement('p');
+                questionText.className = 'question-text';
+                questionText.textContent = `${index + 1}. ${q.question}`;
+                questionContainer.appendChild(questionText);
+
+                const textarea = document.createElement('textarea');
+                textarea.name = 'essayAnswer';
+                textarea.required = true;
+                textarea.value = q.userAnswer || '';
+                textarea.placeholder = 'Tulis jawaban anda di sini...';
+                textarea.addEventListener('input', (e) => {
+                    q.userAnswer = e.target.value;
+                });
+                questionContainer.appendChild(textarea);
+            }
+
+            prevBtn.disabled = index === 0;
+            nextBtn.textContent = index === totalQuestions - 1 ? 'Kirim' : 'Next';
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0 && !modal.classList.contains('active')) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (modal.classList.contains('active')) {
+                return; // Prevent navigating while modal active
+            }
+
+            const q = questions[currentQuestionIndex];
+            if (q.type === 'mcq') {
+                const selected = document.querySelector('input[name="option"]:checked');
+                if (!selected) {
+                    alert('Silakan pilih salah satu jawaban sebelum melanjutkan.');
+                    return;
+                }
+                q.userAnswer = selected.value;
+            } else {
+                const textarea = questionContainer.querySelector('textarea');
+                if (!textarea.value.trim()) {
+                    alert('Silakan isi jawaban essay sebelum melanjutkan.');
+                    return;
+                }
+                q.userAnswer = textarea.value.trim();
+            }
+
+            if (currentQuestionIndex === totalQuestions - 1) {
+                submitQuiz();
+            } else {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        function submitQuiz() {
+            // Calculate score for MCQs only
+            let score = 0;
+            questions.forEach(q => {
+                if (q.type === 'mcq' && q.userAnswer === q.answer) {
+                    score += 10;
+                }
+            });
+
+            evalForm.style.display = 'none';
+            progressText.style.display = 'none';
+            resultContainer.classList.add('active');
+            finalScore.textContent = `Skor Anda: ${score} dari 100`;
+
+            // Prepare WhatsApp message content, encodeURIComponent applied
+            let message = encodeURIComponent(
+`Evaluasi Sholat - Hasil Peserta:
+
+Skor Pilihan Ganda: ${score}
+
+Jawaban Essay:
+${questions.filter(q => q.type === 'essay').map((q, i) =>
+`${i + 1}. ${q.question}
+Jawaban: ${q.userAnswer || '(Tidak diisi)'}`
+).join('\n\n')}
+`);
+
+            const waNumber = '6282136500435'; // WhatsApp number in Indonesia format
+            const waUrl = `https://wa.me/${waNumber}?text=${message}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function showModal() {
+            if (!modalShown) {
+                modal.classList.add('active');
+                modalShown = true;
+            }
+        }
+
+        function hideModal() {
+            modal.classList.remove('active');
+            modalShown = false;
+        }
+
+        resetBtn.addEventListener('click', () => {
+            hideModal();
+            questions.forEach(q => q.userAnswer = '');
+            currentQuestionIndex = 0;
+            showQuestion(currentQuestionIndex);
+            evalForm.style.display = 'flex';
+            progressText.style.display = 'block';
+            resultContainer.classList.remove('active');
+        });
+
+        // Show modal on blur only once until reset
+        window.addEventListener('blur', () => {
+            showModal();
+        });
+
+        // Show modal on minimize (small window) only once until reset
+        window.addEventListener('resize', () => {
+            if ((window.innerWidth < 300 || window.innerHeight < 300) && !modal.classList.contains('active')) {
+                alert('Mau ngapain?');
+                showModal();
+            }
+        });
+
+        // Prevent modal close on outside click or ESC key
+        modal.addEventListener('click', e => {
+            e.stopPropagation();
+        });
+        window.addEventListener('keydown', e => {
+            if (modal.classList.contains('active')) {
+                if (e.key === "Escape" || e.key === "Esc") {
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Initialize first question
+        showQuestion(currentQuestionIndex);
+    </script>
+</body>
+
+</html>

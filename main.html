@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Menu Utama - Belajar Sholat</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins&display=swap');
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(39, 39, 39, 0.85);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+  }
+  header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    cursor: default;
+    user-select: none;
+    color: #f6c90e;
+    text-shadow: 0 0 8px #f6c90e;
+  }
+
+  /* Main Content */
+  main {
+    flex-grow: 1;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  main h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    margin-bottom: 8px;
+    color: #fff;
+    text-shadow: 0 0 12px rgba(246, 201, 14, 0.9);
+  }
+  main p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #eee;
+    margin-bottom: 40px;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  /* Grid Cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 30px;
+    width: 100%;
+  }
+  .card {
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 20px;
+    padding: 30px 25px;
+    color: #f9d972;
+    box-shadow: 0 10px 30px rgba(246, 201, 14, 0.3);
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .card:hover, .card:focus {
+    background: rgba(249, 217, 114, 0.15);
+    box-shadow: 0 15px 40px rgba(249, 217, 114, 0.7);
+    transform: scale(1.07);
+    outline: none;
+  }
+  .card svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    fill: #f9d972;
+    filter: drop-shadow(0 0 2px #f9d972);
+  }
+  .card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #f4e8bb;
+  }
+
+  /* Accessibility: focus state outline */
+  .card:focus-visible {
+    outline: 3px solid #f6c90e;
+    outline-offset: 5px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    main h2 {
+      font-size: 2rem;
+    }
+    .cards {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .card {
+      padding: 25px 20px;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>PAI Belajar Sholat</h1>
+  </header>
+  <main>
+    <h2>Menu Pembelajaran</h2>
+    <p>Pilih bagian yang ingin kamu pelajari lebih lanjut</p>
+    <div class="cards" role="list">
+      <a href="materi.html" class="card" role="listitem" tabindex="0" aria-label="Materi">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M50 8H14a6 6 0 0 0-6 6v36a6 6 0 0 0 6 6h36a6 6 0 0 0 6-6V14a6 6 0 0 0-6-6Zm-2 38H16V18h32Z"/></svg>
+        <h3>Materi</h3>
+        <p>Pengertian lengkap dan dalil-dalil sholat</p>
+      </a>
+      <a href="macam.html" class="card" role="listitem" tabindex="0" aria-label="Macam-Macam Sholat">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M19 20h26v4H19zM19 30h26v4H19zM19 40h26v4H19z"/></svg>
+        <h3>Macam-Macam</h3>
+        <p>Sholat wajib hingga sunnah</p>
+      </a>
+      <a href="praktek.html" class="card" role="listitem" tabindex="0" aria-label="Praktek">
+        <svg fill="none" stroke="#f9d972" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 7v10l10-5-10-5z"></path></svg>
+        <h3>Praktek</h3>
+        <p>Video dan gambar panduan sholat</p>
+      </a>
+      <a href="evaluasi.html" class="card" role="listitem" tabindex="0" aria-label="Evaluasi">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M50 8H14a6 6 0 0 0-6 6v36a6 6 0 0 0 6 6h36a6 6 0 0 0 6-6V14a6 6 0 0 0-6-6Zm-7 35-12-9 12-9Z"/></svg>
+        <h3>Evaluasi</h3>
+        <p>10 Pilihan Ganda dan 5 Essay</p>
+      </a>
+      <a href="game.html" class="card" role="listitem" tabindex="0" aria-label="Game">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M46 16H18a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h28a6 6 0 0 0 6-6V22a6 6 0 0 0-6-6Zm-7 25h-2v-5a3 3 0 0 0-6 0v5h-2v-10h2v3a3 3 0 0 0 6 0v-3h2Z"/></svg>
+        <h3>Game</h3>
+        <p>Teka Teki Silang canggih</p>
+      </a>
+    </div>
+  </main>
+</body>
+</html>
