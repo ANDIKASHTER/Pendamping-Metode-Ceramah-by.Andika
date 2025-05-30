@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Macam-Macam Sholat - Belajar Sholat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo&family=Montserrat:wght@700&family=Poppins&display=swap');
+
+        /* Reset */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: #000; /* Black background */
+            color: #f8f1d4; /* Soft cream */
+            overflow-x: hidden;
+        }
+
+        /* Islamic geometric pattern background overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://images.unsplash.com/photo-1511201682020-1c1c1c1c1c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1920') no-repeat center center/cover;
+            opacity: 0.1; /* Light opacity for the background */
+            z-index: 0;
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            max-width: 900px;
+            margin: 60px auto 40px auto;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px 6px rgba(248, 241, 212, 0.2);
+            border: 2px solid #d4af37; /* Gold border */
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 20px 0;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 3px 15px rgba(212,175,55,0.7);
+        }
+        header h1 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f8f1d4;
+            text-shadow: 0 0 8px #d4af37aa;
+            margin: 0;
+            user-select: none;
+        }
+
+        main {
+            flex-grow: 1;
+            margin-top: 80px;
+        }
+
+        main h2 {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #d4af37; /* Gold color */
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.9);
+            margin-bottom: 25px;
+            user-select: none;
+        }
+
+        section {
+            margin-bottom: 40px;
+            border: 1.5px solid #d4af37; /* Gold border */
+            border-radius: 15px;
+            padding: 30px 35px;
+            background: rgba(244, 203, 7, 0.08);
+            box-shadow: 0 0 20px 5px rgba(212,175,55,0.25);
+        }
+
+        section h3 {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 1.9rem;
+            color: #fff8cc; /* Light cream */
+            margin-bottom: 20px;
+            user-select: none;
+        }
+
+        section p {
+            font-size: 1.13rem;
+            line-height: 1.7;
+            color: #f8f1d4cc; /* Soft cream */
+            user-select: text;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .container {
+                padding: 30px 25px;
+                margin: 80px 20px 40px 20px;
+            }
+            main h2 {
+                font-size: 2rem;
+            }
+            section h3 {
+                font-size: 1.5rem;
+            }
+            section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Macam-Macam Sholat</h1>
+    </header>
+    <main class="container" role="main">
+        <section aria-labelledby="fardhu-title">
+            <h2 id="fardhu-title">Sholat Wajib (Fardhu)</h2>
+            <p>
+                Sholat wajib adalah sholat yang harus dilaksanakan oleh semua muslim. Sholat wajib dibagi menjadi dua jenis:
+            </p>
+            <ol>
+                <li>
+                    <strong>Fardhu 'Ain:</strong> Sholat yang wajib dilaksanakan oleh setiap individu muslim, seperti sholat lima waktu (Subuh, Dzuhur, Ashar, Maghrib, dan Isya) dan sholat Jumat.
+                </li>
+                <li>
+                    <strong>Fardhu Kifayah:</strong> Sholat yang wajib dilaksanakan oleh umat Islam secara bersama-sama, seperti sholat Jenazah, sholat Nadzar, dan sholat Gerhana.
+                </li>
+            </ol>
+        </section>
+
+        <section aria-labelledby="sunnah-title">
+            <h2 id="sunnah-title">Sholat Sunnah</h2>
+            <p>
+                Sholat sunnah dikerjakan untuk menambah pahala dan keutamaan ibadah. Berikut beberapa jenis sholat sunnah:
+            </p>
+            <ul>
+                <li><strong>Sholat Rawatib:</strong> Sholat sunnah yang dilakukan sebelum dan sesudah sholat wajib (fardhu) lima waktu.</li>
+                <li><strong>Sholat Tahajjud:</strong> Sholat sunnah yang dikerjakan pada malam hari setelah tidur.</li>
+                <li><strong>Sholat Dhuha:</strong> Sholat sunnah yang dikerjakan pada pagi hari.</li>
+                <li><strong>Sholat Witir:</strong> Sholat sunnah yang dikerjakan setelah sholat Isya, biasanya berjumlah satu atau tiga rakaat.</li>
+                <li><strong>Sholat Tarawih:</strong> Sholat sunnah yang dikerjakan pada malam bulan Ramadhan.</li>
+                <li><strong>Sholat Idul Fitri dan Idul Adha:</strong> Sholat sunnah yang dikerjakan pada hari raya Idul Fitri dan Idul Adha.</li>
+                <li><strong>Sholat Tahiyyatul Masjid:</strong> Sholat sunnah yang dikerjakan ketika baru memasuki masjid.</li>
+                <li><strong>Sholat Isyraq:</strong> Sholat sunnah yang dikerjakan setelah matahari terbit.</li>
+                <li><strong>Sholat Hajat:</strong> Sholat sunnah yang dikerjakan untuk memohon sesuatu kepada Allah SWT.</li>
+                <li><strong>Sholat Istikharah:</strong> Sholat sunnah yang dikerjakan untuk memohon petunjuk dan pilihan terbaik.</li>
+                <li><strong>Sholat Gerhana:</strong> Sholat sunnah yang dikerjakan ketika terjadi gerhana matahari atau bulan.</li>
+                <li><strong>Sholat Awwabin:</strong> Sholat sunnah yang dikerjakan setelah sholat Maghrib.</li>
+                <li><strong>Sholat Sunnah Wudhu:</strong> Sholat sunnah yang dikerjakan setelah berwudhu.</li>
+                <li><strong>Sholat Sunnah Taubat:</strong> Sholat sunnah yang dikerjakan sebagai ungkapan penyesalan dan mohon ampunan kepada Allah SWT.</li>
+                <li><strong>Sholat Sunnah Safar:</strong> Sholat sunnah yang dikerjakan ketika sedang bepergian.</li>
+                <li><strong>Sholat Sunnah Tasbih:</strong> Sholat sunnah yang dikerjakan dengan jumlah tasbih tertentu.</li>
+                <li><strong>Sholat Sunnah Tawaf:</strong> Sholat sunnah yang dikerjakan setelah melaksanakan tawaf.</li>
+                <li><strong>Sholat Sunnah Khusuf (Gerhana Bulan) dan Kusuf (Gerhana Matahari):</strong> Sholat sunnah yang dikerjakan saat terjadi gerhana bulan dan gerhana matahari.</li>
+                <li><strong>Sholat Sunnah Istisqa (Meminta Hujan):</strong> Sholat sunnah yang dikerjakan ketika terjadi kekeringan.</li>
+                <li><strong>Sholat Sunnah Setelah Akad Nikah:</strong> Sholat sunnah yang dikerjakan setelah selesai akad nikah.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
