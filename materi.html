@@ -1,162 +1,384 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Materi - Belajar Sholat</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo&family=Montserrat:wght@700&family=Poppins&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Pengertian Sholat</title>
+<style>
+  :root {
+    font-size: 16px;
+  }
+  @media (max-width: 600px) {
+    :root {
+      font-size: 14px;
+    }
+  }
 
-    /* Reset */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      background-color: #0b3d02; /* Dark Green */
-      color: #f8f1d4; /* Soft Cream */
-      overflow-x: hidden;
-    }
+  body {
+    background-color: #f5f0e6;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 2rem 1rem 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: #4b3a01;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-    /* Islamic geometric pattern background overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at center, rgba(248,241,212,0.03) 1px, transparent 1px),
-                  radial-gradient(circle at center, rgba(248,241,212,0.03) 1px, transparent 1px);
-      background-position: 0 0, 25px 25px;
-      background-size: 50px 50px;
-      pointer-events: none;
-      z-index: 0;
-    }
+  h1.title-main {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #b78f25;
+    text-shadow: 1.5px 1.5px 0 #f5ecc2;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    font-family: 'Georgia', serif;
+    text-align: center;
+  }
 
-    /* Container for content */
-    .container {
-      position: relative;
-      max-width: 900px;
-      margin: 60px auto 40px auto;
-      background: rgba(11, 61, 2, 0.85);
-      padding: 40px 50px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px 6px rgba(248, 241, 212, 0.2);
-      border: 2px solid #f8f1d4;
-      z-index: 1;
-    }
+  .book {
+    width: 90vw;
+    max-width: 700px;
+    height: 70vh;
+    max-height: 520px;
+    background: #fbf7ef;
+    border: 6px solid #d4af37;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    perspective: 1400px;
+  }
 
-    /* Heading styles */
-    h1, h2 {
-      font-family: 'Cairo', sans-serif;
-      font-weight: 700;
-      color: #f8f1d4;
-      text-align: center;
-      text-shadow: 0 0 12px #d4af37af;
-      user-select: none;
-      margin-bottom: 1rem;
-    }
-    h1 {
-      font-size: 3rem;
-      letter-spacing: 5px;
-      margin-top: 0;
-    }
-    h2 {
-      font-size: 2.5rem;
-    }
+  .page {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #fbf7ef 0%, #f0e5c9 100%);
+    border-radius: 12px;
+    padding: 2.5rem 2rem 3rem 2rem;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    color: #4b3a01;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    opacity: 0;
+    pointer-events: none;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transform-origin: center center;
+    transform: translateX(0) translateZ(0);
+    transition: none;
+  }
 
-    /* Paragraph styles */
-    p {
-      font-size: 1.15rem;
-      line-height: 1.75;
-      color: #f8f1d4cc;
-      margin-bottom: 1.3rem;
-      user-select: text;
-    }
+  .page.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+  }
 
-    /* Quran verse block */
-    .quran-verse {
-      background-color: rgba(244, 203, 7, 0.1);
-      border-left: 8px solid #d4af37;
-      padding: 25px 30px;
-      border-radius: 12px;
-      margin-top: 30px;
-      font-style: italic;
-      color: #f4ecae;
-      box-shadow: 0 0 18px 4px #d4af37a8;
-    }
-    .quran-verse p {
-      margin-bottom: 10px;
-      font-size: 1.18rem;
-      color: #f0df7b;
-    }
-    .quran-verse span {
-      font-weight: 700;
-      font-size: 1.35rem;
-      color: #fff8cc;
-      display: block;
-      letter-spacing: 0.05em;
-      user-select: text;
-    }
+  /* Animations for Next: current page slides backward/into page and scales down & fades slightly, next page slides from right on top */
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: #0b3d02dd;
-      padding: 20px 0;
-      text-align: center;
-      z-index: 10;
-      box-shadow: 0 3px 15px rgba(212,175,55,0.7);
-    }
-    header h1 {
-      font-family: 'Cairo', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #f8f1d4;
-      text-shadow: 0 0 8px #d4af37aa;
-      margin: 0;
-      user-select: none;
-    }
+  .page.next-current-pushback {
+    animation: pushBack 0.5s forwards ease-in;
+    z-index: 5;
+  }
+  .page.next-next-slidein {
+    animation: slideInFromRight 0.5s forwards ease-out;
+    z-index: 10;
+  }
 
-    /* Responsive for smaller screens */
-    @media (max-width: 700px) {
-      .container {
-        padding: 30px 25px;
-        margin: 80px 20px 40px 20px;
-      }
-      h1 {
-        font-size: 2.2rem;
-      }
-      h2 {
-        font-size: 2rem;
-      }
-      p, .quran-verse p, .quran-verse span {
-        font-size: 1rem;
-      }
+  @keyframes pushBack {
+    0% {
+      opacity: 1;
+      transform: translateX(0) translateZ(0) scale(1);
+      box-shadow:
+        inset 0 0 20px #d4af37cc,
+        0 10px 20px rgba(212, 175, 55, 0.3);
     }
-  </style>
+    100% {
+      opacity: 0.85;
+      transform: translateX(-40px) translateZ(-150px) scale(0.95);
+      box-shadow:
+        inset 0 0 30px #b38e2099,
+        0 20px 50px rgba(140, 110, 30, 0.6);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%) translateZ(0);
+      opacity: 0;
+      box-shadow: none;
+    }
+    100% {
+      transform: translateX(0) translateZ(0);
+      opacity: 1;
+      box-shadow:
+        inset 0 0 20px #d4af37cc,
+        0 10px 20px rgba(212, 175, 55, 0.3);
+    }
+  }
+
+  /* Animations for Prev: current page slides out right/fade out, previous page slides in from left with slight push */
+
+  .page.prev-current-slideout {
+    animation: slideOutRightFade 0.5s forwards ease-in;
+    z-index: 10;
+  }
+  .page.prev-prev-slidein {
+    animation: slideInFromLeftPush 0.5s forwards ease-out;
+    z-index: 15;
+  }
+
+  @keyframes slideOutRightFade {
+    0% {
+      opacity: 1;
+      transform: translateX(0) translateZ(0) scale(1);
+      box-shadow:
+        inset 0 0 20px #d4af37cc,
+        0 10px 20px rgba(212, 175, 55, 0.3);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(150%) translateZ(0) scale(1);
+      box-shadow: none;
+    }
+  }
+
+  @keyframes slideInFromLeftPush {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px) translateZ(-150px) scale(0.95);
+      box-shadow:
+        inset 0 0 30px #b38e2099,
+        0 20px 50px rgba(140, 110, 30, 0.6);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) translateZ(0) scale(1);
+      box-shadow:
+        inset 0 0 20px #d4af37cc,
+        0 10px 20px rgba(212, 175, 55, 0.3);
+    }
+  }
+
+
+  .page h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #b78f25;
+    text-shadow: 1px 1px 0 #f5ecc2;
+    letter-spacing: 1.5px;
+    text-align: center;
+  }
+
+  .page h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #a57f1a;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  blockquote {
+    border-left: 4px solid #d4af37;
+    padding-left: 0.8rem;
+    color: #6e5a0e;
+    font-style: italic;
+    margin: 0.7rem 0 1.2rem 0;
+    background: #fbf7efcc;
+    font-size: 1rem;
+  }
+
+  ul, ol {
+    margin-left: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Kontainer tombol navigasi */
+  .nav-buttons {
+    width: 90vw;
+    max-width: 700px;
+    margin: 1.5rem 0 0 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  button {
+    background-color: #d4af37;
+    border: none;
+    border-radius: 25px;
+    padding: 0.7rem 2.5rem;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 9px #b88518;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    min-width: 120px;
+  }
+  button:disabled {
+    background-color: #a89b59;
+    cursor: default;
+    box-shadow: none;
+  }
+  button:hover:not(:disabled) {
+    background-color: #b58517;
+  }
+
+</style>
 </head>
 <body>
-  <header>
-    <h1>Materi Sholat</h1>
-  </header>
-  <main class="container" role="main">
-    <h2>Pengertian Shalat</h2>
-    <p>
-      Shalat dari bahasa Arab As-sholah, menurut Bahasa / Etimologi berarti Do’a dan secara terminology/istilah, para ahli fiqh mengartikan secara lahir dan hakiki.
-    </p>
-    <p>
-      Secara lahiriah shalat berarti beberapa ucapan dan perbuatan yang dimulai dengan takbir dan diakhiri dengan salam, yang dengannya kita beribadah kepada Allah menurut syarat-syarat yang telah ditentukan.
-    </p>
-    <p>
-      Adapun secara hakikinya ialah berhadapan hati (jiwa) kepada Allah, secara yang mendatangkan takut kepada-Nya serta menumbuhkan di dalam jiwa rasa kebesaran-Nya atau mendhohirkan hajat dan keperluan kita kepada Allah yang kita sembah dengan perkataan dan pekerjaan atau kedua-duanya.
-    </p>
-    <section class="quran-verse" aria-label="Ayat Quran Surah Al-Ankabut ayat 45">
-      <p>Sebagaimana perintah-Nya dalam surah Al-Ankabut ayat 45:</p>
-      <span>
-        "Bacalah apa yang telah diwahyukan kepadamu, yaitu Al-Kitab (Al-Quran) dan dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan-perbuatan) keji dan mungkar. Dan sesungguhnya mengingat Allah (shalat) adalah lebih besar (keutamaannya dari ibadat-ibadat yang lain). Dan Allah mengetahui apa yang kamu kerjakan."
-      </span>
+  <h1 class="title-main" aria-label="Judul utama materi">Materi Sholat</h1>
+  <div class="book" id="book" role="region" aria-label="Buku materi sholat">
+    <section class="page active" id="page1" tabindex="0" aria-label="Halaman A: Definisi Secara Bahasa dan Istilah">
+      <h1>Pengertian Sholat</h1>
+      <h2>A. Definisi Secara Bahasa dan Istilah</h2>
+      <p>Secara bahasa (etimologi), sholat berasal dari bahasa Arab "الصلاة" (ash-shalāh) yang berarti doa. Dalam banyak kamus klasik Arab seperti Lisan al-‘Arab karya Ibn Manzhur, disebutkan bahwa kata shalāh bermakna doa, permohonan, dan keberkahan. Dalam bahasa Indonesia, istilah ini juga sering disebut “salat”.</p>
+      <p>Secara istilah (terminologi syar'i), sholat adalah suatu ibadah yang terdiri dari ucapan dan perbuatan yang dimulai dengan takbiratul ihram dan diakhiri dengan salam, dilakukan dengan syarat dan rukun tertentu, serta sebagai bentuk penghambaan kepada Allah SWT.</p>
     </section>
-  </main>
+    <section class="page" id="page2" tabindex="0" aria-label="Halaman B: Kedudukan Sholat dalam Islam">
+      <h2>B. Kedudukan Sholat dalam Islam</h2>
+      <p>Sholat memiliki kedudukan yang sangat penting dalam Islam. Ia merupakan:</p>
+      <ul>
+        <li>Rukun Islam kedua setelah syahadat.</li>
+        <li>Ibadah yang pertama kali diwajibkan secara langsung oleh Allah kepada Nabi Muhammad SAW dalam peristiwa Isra’ Mi’raj tanpa perantara malaikat Jibril.</li>
+        <li>Amalan yang pertama kali dihisab pada hari kiamat.</li>
+      </ul>
+      <blockquote>“Sesungguhnya amal yang pertama kali dihisab dari seorang hamba pada hari kiamat adalah sholat. Jika sholatnya baik, maka baik pula seluruh amalnya. Dan jika sholatnya rusak, maka rusak pula seluruh amalnya.” (HR. Tirmidzi, no. 413; Hasan lighairihi)</blockquote>
+    </section>
+    <section class="page" id="page3" tabindex="0" aria-label="Halaman C: Tujuan dan Hikmah Sholat">
+      <h2>C. Tujuan dan Hikmah Sholat</h2>
+      <p>Sholat bukan sekadar ritual, namun mengandung banyak hikmah dan tujuan spiritual, sosial, serta moral, antara lain:</p>
+      <ol>
+        <li><strong>Menjalin hubungan langsung dengan Allah SWT.</strong> Dalam sholat, seorang Muslim berdialog dengan Tuhannya secara langsung tanpa perantara. Ini adalah bentuk penghambaan yang paling intim.</li>
+        <li><strong>Mencegah dari perbuatan keji dan mungkar.</strong> Allah SWT berfirman:</li>
+      </ol>
+      <blockquote>"Sesungguhnya sholat itu mencegah dari (perbuatan-perbuatan) keji dan mungkar." (QS. Al-‘Ankabut: 45)</blockquote>
+      <ol start="3">
+        <li><strong>Menanamkan kedisiplinan dan ketundukan.</strong> Sholat lima waktu melatih seorang Muslim untuk hidup teratur, taat terhadap waktu, dan tunduk kepada aturan Allah SWT.</li>
+        <li><strong>Membentuk karakter tawadhu’ dan khusyuk.</strong> Gerakan dan bacaan dalam sholat mengajarkan sikap rendah hati dan tunduk sepenuhnya kepada Sang Pencipta.</li>
+        <li><strong>Mempersatukan umat Islam.</strong> Sholat berjamaah, terutama di masjid, mempererat ukhuwah Islamiyah dan menumbuhkan rasa persaudaraan sesama Muslim.</li>
+      </ol>
+    </section>
+    <section class="page" id="page4" tabindex="0" aria-label="Halaman D: Kewajiban dan Hukum Meninggalkan Sholat">
+      <h2>D. Kewajiban dan Hukum Meninggalkan Sholat</h2>
+      <p>Sholat fardhu lima waktu (Subuh, Zuhur, Ashar, Maghrib, dan Isya) adalah wajib bagi setiap Muslim yang sudah memenuhi syarat-syaratnya (baligh, berakal, tidak sedang haid/nifas bagi perempuan).</p>
+      <p>Orang yang meninggalkan sholat tanpa uzur yang syar’i termasuk dalam perbuatan dosa besar. Dalam banyak hadits, Rasulullah SAW menegaskan bahaya meninggalkan sholat:</p>
+      <blockquote>“Perjanjian antara kami dan mereka adalah sholat. Barang siapa yang meninggalkannya, maka sungguh dia telah kafir.” (HR. Tirmidzi, no. 2621; shahih)</blockquote>
+      <p>Namun, para ulama berbeda pendapat apakah meninggalkan sholat membuat seseorang menjadi kafir secara mutlak atau termasuk dalam dosa besar yang belum sampai pada level kafir.</p>
+    </section>
+    <section class="page" id="page5" tabindex="0" aria-label="Halaman E: Sholat sebagai Tolak Ukur Keimanan">
+      <h2>E. Sholat sebagai Tolak Ukur Keimanan</h2>
+      <p>Sholat adalah cermin keimanan seseorang. Konsistensi seseorang dalam menjaga sholatnya menunjukkan kesungguhan dalam menjalankan agama. Allah SWT memuji orang-orang beriman dalam Al-Qur’an:</p>
+      <blockquote>"Dan orang-orang yang memelihara sholatnya. Mereka itulah orang-orang yang akan mewarisi (surga Firdaus), mereka kekal di dalamnya." (QS. Al-Mu’minun: 9-11)</blockquote>
+      <hr />
+      <h3>📚 Sumber Rujukan Materi:</h3>
+      <ol>
+        <li>Departemen Agama RI. Al-Qur'an dan Terjemahannya. Jakarta: Lajnah Pentashihan Mushaf Al-Qur’an.</li>
+        <li>Al-Ghazali. Ihya’ Ulumuddin. Beirut: Dar al-Fikr.</li>
+        <li>Al-Nawawi. Riyadhus Shalihin. Beirut: Dar al-Ma’rifah.</li>
+        <li>Ibn Manzhur. Lisan al-‘Arab. Mesir: Dar al-Ma’arif.</li>
+        <li>Shiddiq, M. Quraish. Ensiklopedi Tematis Dunia Islam: Shalat. Jakarta: Lentera Hati.</li>
+        <li>Tim Penulis. Fiqih Ibadah. Jakarta: Direktorat PAI Kemenag RI.</li>
+      </ol>
+    </section>
+  </div>
+
+  <div class="nav-buttons">
+    <button id="prevBtn" aria-label="Halaman sebelumnya">« Sebelumnya</button>
+    <button id="nextBtn" aria-label="Halaman selanjutnya">Selanjutnya »</button>
+  </div>
+
+  <script>
+    const pages = document.querySelectorAll('.page');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentPage = 1;
+    let animating = false;
+
+    function updateButtons() {
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === pages.length;
+    }
+
+    function clearAnimationClasses(page) {
+      page.classList.remove(
+        'next-current-pushback',
+        'next-next-slidein',
+        'prev-current-slideout',
+        'prev-prev-slidein',
+        'active',
+        'exit'
+      );
+      page.style.opacity = '';
+      page.style.transform = '';
+      page.style.pointerEvents = '';
+      page.style.zIndex = '';
+      page.style.animation = '';
+    }
+
+    function gotoPage(target, direction){
+      if(animating || target === currentPage || target < 1 || target > pages.length) return;
+      animating = true;
+
+      const current = document.getElementById('page' + currentPage);
+      const next = document.getElementById('page' + target);
+
+      clearAnimationClasses(current);
+      clearAnimationClasses(next);
+
+      if(direction === 'next'){
+        // Next: current page pushes back and slightly fades (scale down and translateZ neg), next page slides in from right
+        current.classList.add('next-current-pushback');
+        next.classList.add('next-next-slidein', 'active');
+
+        setTimeout(() => {
+          clearAnimationClasses(current);
+          next.classList.add('active');
+          currentPage = target;
+          animating = false;
+          updateButtons();
+          next.focus();
+        }, 500);
+      } else if(direction === 'prev'){
+        // Prev: current page slides out right(fade), previous page slides in from left and slightly "pulls forward"
+        current.classList.add('prev-current-slideout');
+        next.classList.add('prev-prev-slidein', 'active');
+
+        setTimeout(() => {
+          clearAnimationClasses(current);
+          clearAnimationClasses(next);
+          next.classList.add('active');
+          currentPage = target;
+          animating = false;
+          updateButtons();
+          next.focus();
+        }, 500);
+      }
+    }
+
+    prevBtn.addEventListener('click', () => gotoPage(currentPage - 1, 'prev'));
+    nextBtn.addEventListener('click', () => gotoPage(currentPage + 1, 'next'));
+
+    updateButtons();
+
+    window.onload = () => {
+      document.getElementById('page1').focus();
+    };
+  </script>
 </body>
 </html>
+
+
