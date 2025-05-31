@@ -1,173 +1,447 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Macam-Macam Sholat - Belajar Sholat</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo&family=Montserrat:wght@700&family=Poppins&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Macam-macam Sholat</title>
+<style>
+  /* Reset and base */
+  body {
+    background-color: #000;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+  }
 
-        /* Reset */
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-        }
-        html, body {
-            height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background-color: #000; /* Black background */
-            color: #f8f1d4; /* Soft cream */
-            overflow-x: hidden;
-        }
+  h1 {
+    text-align: center;
+    font-weight: 900;
+    font-size: 3rem;
+    margin-bottom: 30px;
+    color: #0f0;
+    position: relative;
+    user-select: none;
+  }
+  h1::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 15%;
+    width: 70%;
+    height: 3px;
+    background: linear-gradient(90deg, #0f0 0%, #00f 50%, #0f0 100%);
+    animation: glowing-line 3s linear infinite;
+    border-radius: 2px;
+  }
 
-        /* Islamic geometric pattern background overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://images.unsplash.com/photo-1511201682020-1c1c1c1c1c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1920') no-repeat center center/cover;
-            opacity: 0.1; /* Light opacity for the background */
-            z-index: 0;
-        }
+  /* Glowing moving line animation */
+  @keyframes glowing-line {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
 
-        /* Container */
-        .container {
-            position: relative;
-            max-width: 900px;
-            margin: 60px auto 40px auto;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 40px 50px;
-            border-radius: 20px;
-            box-shadow: 0 0 30px 6px rgba(248, 241, 212, 0.2);
-            border: 2px solid #d4af37; /* Gold border */
-            z-index: 1;
-        }
+  .container {
+    max-width: 900px;
+    margin: auto;
+  }
 
-        /* Header */
-        header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 20px 0;
-            text-align: center;
-            z-index: 10;
-            box-shadow: 0 3px 15px rgba(212,175,55,0.7);
-        }
-        header h1 {
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #f8f1d4;
-            text-shadow: 0 0 8px #d4af37aa;
-            margin: 0;
-            user-select: none;
-        }
+  .accordion {
+    border: 2px solid #0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 15px #0f0 inset, 0 0 20px #00f inset;
+  }
 
-        main {
-            flex-grow: 1;
-            margin-top: 80px;
-        }
+  .accordion-item + .accordion-item {
+    border-top: 1px solid #0f0;
+  }
 
-        main h2 {
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 2.5rem;
-            color: #d4af37; /* Gold color */
-            text-shadow: 0 0 12px rgba(212, 175, 55, 0.9);
-            margin-bottom: 25px;
-            user-select: none;
-        }
+  .accordion-header {
+    background-color: #111;
+    padding: 18px 25px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #0f0;
+    position: relative;
+    user-select: none;
+    border-left: 10px solid transparent;
+    transition:
+      background-color 0.3s,
+      border-left-color 0.5s ease;
+    box-shadow: inset 0 0 10px #0f0;
+  }
 
-        section {
-            margin-bottom: 40px;
-            border: 1.5px solid #d4af37; /* Gold border */
-            border-radius: 15px;
-            padding: 30px 35px;
-            background: rgba(244, 203, 7, 0.08);
-            box-shadow: 0 0 20px 5px rgba(212,175,55,0.25);
-        }
+  .accordion-header::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    border-color: #0f0;
+    transform: translateY(-50%) rotate(45deg);
+    transition: transform 0.3s ease;
+  }
 
-        section h3 {
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 1.9rem;
-            color: #fff8cc; /* Light cream */
-            margin-bottom: 20px;
-            user-select: none;
-        }
+  .accordion-header.active {
+    background-color: #012600;
+    border-left-color: #00ff00;
+  }
 
-        section p {
-            font-size: 1.13rem;
-            line-height: 1.7;
-            color: #f8f1d4cc; /* Soft cream */
-            user-select: text;
-        }
+  .accordion-header.active::before {
+    transform: translateY(-50%) rotate(135deg);
+  }
 
-        /* Responsive */
-        @media (max-width: 700px) {
-            .container {
-                padding: 30px 25px;
-                margin: 80px 20px 40px 20px;
-            }
-            main h2 {
-                font-size: 2rem;
-            }
-            section h3 {
-                font-size: 1.5rem;
-            }
-            section p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+  .accordion-content {
+    display: none;
+    background-color: #101a10;
+    padding-left: 25px;
+  }
+
+  .sub-item {
+    border-left: 6px solid #008800;
+    padding: 10px 18px;
+    margin: 6px 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #6fdb6f;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 0 12px #0f0 inset;
+    transition: background-color 0.25s;
+  }
+  .sub-item:hover {
+    background-color: #004000;
+  }
+
+  .sub-accordion-content {
+    margin-left: 16px;
+    margin-top: 6px;
+    border-left: 2px solid #00ff00;
+    padding-left: 10px;
+    display: none;
+  }
+
+  /* Popup Styling */
+  .popup {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .popup-content {
+    background: #000;
+    border: 3px solid #0f0;
+    border-radius: 15px;
+    padding: 25px 30px;
+    max-width: 460px;
+    color: #0f0;
+    box-shadow:
+      0 0 15px #0f0,
+      0 0 30px #00f;
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.5;
+    user-select: none;
+  }
+
+  .popup-content h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.75rem;
+    text-shadow: 0 0 8px #0f0;
+  }
+
+  .popup-content p {
+    white-space: pre-line;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 28px;
+    color: #0f0;
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+    text-shadow: 0 0 12px #0f0;
+    transition: color 0.3s ease;
+  }
+  .popup-close:hover {
+    color: #00f;
+    text-shadow: 0 0 20px #00f;
+  }
+
+  /* Animated glowing lines background */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+      repeating-linear-gradient(45deg, rgba(0,255,0,0.15) 0, rgba(0,255,0,0.15) 2px, transparent 2px, transparent 10px),
+      repeating-linear-gradient(-45deg, rgba(0,0,255,0.15) 0, rgba(0,0,255,0.15) 2px, transparent 2px, transparent 10px);
+    animation: moveBackground 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes moveBackground {
+    0% {
+      background-position: 0 0, 0 0;
+    }
+    100% {
+      background-position: 100px 100px, -100px -100px;
+    }
+  }
+
+  /* Responsive styles */
+  @media (max-width: 900px) {
+    .container {
+      padding: 0 12px;
+      max-width: 100%;
+    }
+
+    .accordion-header {
+      font-size: 1.1rem;
+      padding: 14px 18px;
+      border-left-width: 7px;
+    }
+
+    .accordion-header::before {
+      width: 10px;
+      height: 10px;
+      right: 15px;
+      border-width: 2px 2px 0 0;
+    }
+
+    .accordion-content {
+      padding-left: 18px;
+    }
+
+    .sub-item {
+      font-size: 0.95rem;
+      padding: 8px 14px;
+      margin: 4px 8px;
+      border-left-width: 4px;
+      border-radius: 4px;
+    }
+
+    .sub-accordion-content {
+      margin-left: 12px;
+      padding-left: 8px;
+      border-left-width: 1.5px;
+    }
+
+    .popup-content {
+      max-width: 90vw;
+      padding: 20px 18px;
+      font-size: 0.95rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 12px 10px;
+    }
+
+    .accordion-header {
+      font-size: 1rem;
+      padding: 12px 15px;
+      border-left-width: 6px;
+    }
+
+    .accordion-header::before {
+      width: 9px;
+      height: 9px;
+      right: 12px;
+      border-width: 2px 2px 0 0;
+    }
+
+    .sub-item {
+      font-size: 0.88rem;
+      padding: 6px 12px;
+      margin: 3px 6px;
+      border-left-width: 3px;
+    }
+
+    .sub-accordion-content {
+      margin-left: 10px;
+      padding-left: 6px;
+      border-left-width: 1px;
+    }
+
+    .popup-content {
+      font-size: 0.9rem;
+      padding: 16px 14px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+  }
+
+  /* Cursor pointer for keyboard accessibility */
+  .accordion-header,
+  .sub-item,
+  .popup-close {
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Macam-Macam Sholat</h1>
-    </header>
-    <main class="container" role="main">
-        <section aria-labelledby="fardhu-title">
-            <h2 id="fardhu-title">Sholat Wajib (Fardhu)</h2>
-            <p>
-                Sholat wajib adalah sholat yang harus dilaksanakan oleh semua muslim. Sholat wajib dibagi menjadi dua jenis:
-            </p>
-            <ol>
-                <li>
-                    <strong>Fardhu 'Ain:</strong> Sholat yang wajib dilaksanakan oleh setiap individu muslim, seperti sholat lima waktu (Subuh, Dzuhur, Ashar, Maghrib, dan Isya) dan sholat Jumat.
-                </li>
-                <li>
-                    <strong>Fardhu Kifayah:</strong> Sholat yang wajib dilaksanakan oleh umat Islam secara bersama-sama, seperti sholat Jenazah, sholat Nadzar, dan sholat Gerhana.
-                </li>
-            </ol>
-        </section>
+  <div class="container" style="position:relative; z-index:10;">
+    <h1>Macam-macam Sholat</h1>
+    <div class="accordion" role="tablist" aria-multiselectable="true">
+      <!-- A. Sholat Fardhu ‘Ain -->
+      <div class="accordion-item">
+        <div class="accordion-header" role="tab" tabindex="0" aria-expanded="false" aria-controls="fardhuAin" id="fardhuAin-header" onclick="toggleAccordion(event, 'fardhuAin')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleAccordion(event, 'fardhuAin')">A. Sholat Fardhu ‘Ain</div>
+        <div class="accordion-content" role="tabpanel" aria-labelledby="fardhuAin-header" id="fardhuAin" aria-hidden="true">
+          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Subuh', 'Dilakukan setelah terbit fajar hingga sebelum terbit matahari.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Subuh', 'Dilakukan setelah terbit fajar hingga sebelum terbit matahari.')">Sholat Subuh – 2 rakaat</div>
+          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Zuhur', 'Dilakukan setelah matahari tergelincir hingga bayangan benda sama panjangnya.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Zuhur', 'Dilakukan setelah matahari tergelincir hingga bayangan benda sama panjangnya.')">Sholat Zuhur – 4 rakaat</div>
+          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Ashar', 'Dilakukan setelah Zuhur hingga menjelang matahari terbenam.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Ashar', 'Dilakukan setelah Zuhur hingga menjelang matahari terbenam.')">Sholat Ashar – 4 rakaat</div>
+          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Maghrib', 'Dilakukan setelah matahari terbenam hingga hilangnya mega merah.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Maghrib', 'Dilakukan setelah matahari terbenam hingga hilangnya mega merah.')">Sholat Maghrib – 3 rakaat</div>
+          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Isya', 'Dilakukan setelah Maghrib hingga masuk waktu Subuh.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Isya', 'Dilakukan setelah Maghrib hingga masuk waktu Subuh.')">Sholat Isya – 4 rakaat</div>
+        </div>
+      </div>
+      
+      <!-- B. Sholat Fardhu Kifayah -->
+      <div class="accordion-item">
+        <div class="accordion-header" role="tab" tabindex="0" aria-expanded="false" aria-controls="fardhuKifayah" id="fardhuKifayah-header" onclick="toggleAccordion(event, 'fardhuKifayah')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleAccordion(event, 'fardhuKifayah')">B. Sholat Fardhu Kifayah</div>
+        <div class="accordion-content" role="tabpanel" aria-labelledby="fardhuKifayah-header" id="fardhuKifayah" aria-hidden="true">
+          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Jenazah', 'Dikerjakan untuk mendoakan jenazah Muslim sebelum dikubur. Tidak ada ruku\' dan sujud, hanya berdiri dan membaca doa.\nHukum: Fardhu kifayah – jika tidak ada yang mengerjakan, seluruh komunitas berdosa.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Jenazah', 'Dikerjakan untuk mendoakan jenazah Muslim sebelum dikubur. Tidak ada ruku\' dan sujud, hanya berdiri dan membaca doa.\nHukum: Fardhu kifayah – jika tidak ada yang mengerjakan, seluruh komunitas berdosa.')">Sholat Jenazah</div>
+        </div>
+      </div>
 
-        <section aria-labelledby="sunnah-title">
-            <h2 id="sunnah-title">Sholat Sunnah</h2>
-            <p>
-                Sholat sunnah dikerjakan untuk menambah pahala dan keutamaan ibadah. Berikut beberapa jenis sholat sunnah:
-            </p>
-            <ul>
-                <li><strong>Sholat Rawatib:</strong> Sholat sunnah yang dilakukan sebelum dan sesudah sholat wajib (fardhu) lima waktu.</li>
-                <li><strong>Sholat Tahajjud:</strong> Sholat sunnah yang dikerjakan pada malam hari setelah tidur.</li>
-                <li><strong>Sholat Dhuha:</strong> Sholat sunnah yang dikerjakan pada pagi hari.</li>
-                <li><strong>Sholat Witir:</strong> Sholat sunnah yang dikerjakan setelah sholat Isya, biasanya berjumlah satu atau tiga rakaat.</li>
-                <li><strong>Sholat Tarawih:</strong> Sholat sunnah yang dikerjakan pada malam bulan Ramadhan.</li>
-                <li><strong>Sholat Idul Fitri dan Idul Adha:</strong> Sholat sunnah yang dikerjakan pada hari raya Idul Fitri dan Idul Adha.</li>
-                <li><strong>Sholat Tahiyyatul Masjid:</strong> Sholat sunnah yang dikerjakan ketika baru memasuki masjid.</li>
-                <li><strong>Sholat Isyraq:</strong> Sholat sunnah yang dikerjakan setelah matahari terbit.</li>
-                <li><strong>Sholat Hajat:</strong> Sholat sunnah yang dikerjakan untuk memohon sesuatu kepada Allah SWT.</li>
-                <li><strong>Sholat Istikharah:</strong> Sholat sunnah yang dikerjakan untuk memohon petunjuk dan pilihan terbaik.</li>
-                <li><strong>Sholat Gerhana:</strong> Sholat sunnah yang dikerjakan ketika terjadi gerhana matahari atau bulan.</li>
-                <li><strong>Sholat Awwabin:</strong> Sholat sunnah yang dikerjakan setelah sholat Maghrib.</li>
-                <li><strong>Sholat Sunnah Wudhu:</strong> Sholat sunnah yang dikerjakan setelah berwudhu.</li>
-                <li><strong>Sholat Sunnah Taubat:</strong> Sholat sunnah yang dikerjakan sebagai ungkapan penyesalan dan mohon ampunan kepada Allah SWT.</li>
-                <li><strong>Sholat Sunnah Safar:</strong> Sholat sunnah yang dikerjakan ketika sedang bepergian.</li>
-                <li><strong>Sholat Sunnah Tasbih:</strong> Sholat sunnah yang dikerjakan dengan jumlah tasbih tertentu.</li>
-                <li><strong>Sholat Sunnah Tawaf:</strong> Sholat sunnah yang dikerjakan setelah melaksanakan tawaf.</li>
-                <li><strong>Sholat Sunnah Khusuf (Gerhana Bulan) dan Kusuf (Gerhana Matahari):</strong> Sholat sunnah yang dikerjakan saat terjadi gerhana bulan dan gerhana matahari.</li>
-                <li><strong>Sholat Sunnah Istisqa (Meminta Hujan):</strong> Sholat sunnah yang dikerjakan ketika terjadi kekeringan.</li>
-                <li><strong>Sholat Sunnah Setelah Akad Nikah:</strong> Sholat sunnah yang dikerjakan setelah selesai akad nikah.</li>
-            </ul>
-        </section>
-    </main>
-</body>
-</html>
+      <!-- C. Sholat Sunnah -->
+      <div class="accordion-item">
+        <div class="accordion-header" role="tab" tabindex="0" aria-expanded="false" aria-controls="sunnah" id="sunnah-header" onclick="toggleAccordion(event, 'sunnah')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleAccordion(event, 'sunnah')">C. Sholat Sunnah</div>
+        <div class="accordion-content" role="tabpanel" aria-labelledby="sunnah-header" id="sunnah" aria-hidden="true">
+          <div class="sub-item" tabindex="0" onclick="toggleSubAccordion('sunnahMuakkad')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleSubAccordion('sunnahMuakkad')">Sholat Sunnah Muakkad ▸</div>
+          <div class="sub-accordion-content" id="sunnahMuakkad" aria-hidden="true">
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Rawatib', 'Qabliyah dan Ba’diyah: Mengiringi sholat wajib.\nContoh:\n- Qabliyah Subuh (2 rakaat)\n- Ba’diyah Maghrib (2 rakaat)\n- Ba’diyah Isya (2 rakaat)\n- Qabliyah dan Ba’diyah Zuhur (masing-masing 2 rakaat)')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Rawatib', 'Qabliyah dan Ba’diyah: Mengiringi sholat wajib.\nContoh:\n- Qabliyah Subuh (2 rakaat)\n- Ba’diyah Maghrib (2 rakaat)\n- Ba’diyah Isya (2 rakaat)\n- Qabliyah dan Ba’diyah Zuhur (masing-masing 2 rakaat)')">Sholat Rawatib</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Witir', 'Dilakukan setelah sholat malam, jumlahnya ganjil (1, 3, 5, dst.)')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Witir', 'Dilakukan setelah sholat malam, jumlahnya ganjil (1, 3, 5, dst.)')">Sholat Witir</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tahajud', 'Dilakukan di sepertiga malam terakhir setelah tidur.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tahajud', 'Dilakukan di sepertiga malam terakhir setelah tidur.')">Sholat Tahajud</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tarawih', 'Dilakukan di malam bulan Ramadhan, biasanya berjamaah.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tarawih', 'Dilakukan di malam bulan Ramadhan, biasanya berjamaah.')">Sholat Tarawih</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Istisqa’', 'Dilakukan untuk memohon hujan saat musim kering.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Istisqa’', 'Dilakukan untuk memohon hujan saat musim kering.')">Sholat Istisqa’</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Gerhana', 'Sholat dua rakaat saat terjadi gerhana bulan (khusuf) atau matahari (kusuf), dengan bacaan panjang.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Gerhana', 'Sholat dua rakaat saat terjadi gerhana bulan (khusuf) atau matahari (kusuf), dengan bacaan panjang.')">Sholat Gerhana (Khusuf & Kusuf)</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Hari Raya', 'Dua rakaat, dilaksanakan berjamaah di lapangan atau masjid.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Hari Raya', 'Dua rakaat, dilaksanakan berjamaah di lapangan atau masjid.')">Sholat Hari Raya (Idul Fitri & Idul Adha)</div>
+          </div>
+
+          <div class="sub-item" tabindex="0" onclick="toggleSubAccordion('sunnahGhairuMuakkad')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleSubAccordion('sunnahGhairuMuakkad')">Sholat Sunnah Ghairu Muakkad ▸</div>
+          <div class="sub-accordion-content" id="sunnahGhairuMuakkad" aria-hidden="true">
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Dhuha', 'Dilakukan pada pagi hari setelah matahari naik (sekitar pukul 07.00–11.00), 2 hingga 12 rakaat.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Dhuha', 'Dilakukan pada pagi hari setelah matahari naik (sekitar pukul 07.00–11.00), 2 hingga 12 rakaat.')">Sholat Dhuha</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Awwabin', 'Dikerjakan setelah Maghrib, 2–6 rakaat.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Awwabin', 'Dikerjakan setelah Maghrib, 2–6 rakaat.')">Sholat Awwabin</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tahiyatul Masjid', 'Sholat 2 rakaat saat masuk masjid sebelum duduk.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tahiyatul Masjid', 'Sholat 2 rakaat saat masuk masjid sebelum duduk.')">Sholat Tahiyatul Masjid</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tasbih', 'Sholat 4 rakaat dengan bacaan tasbih tertentu dalam setiap gerakan.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tasbih', 'Sholat 4 rakaat dengan bacaan tasbih tertentu dalam setiap gerakan.')">Sholat Tasbih</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Mutlaq', 'Sholat sunnah yang dilakukan kapan saja tanpa sebab tertentu, kecuali di waktu yang dilarang.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Mutlaq', 'Sholat sunnah yang dilakukan kapan saja tanpa sebab tertentu, kecuali di waktu yang dilarang.')">Sholat Mutlaq (Nafilah Mutlaq)</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Istikharah', 'Untuk meminta petunjuk Allah dalam memilih keputusan.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Istikharah', 'Untuk meminta petunjuk Allah dalam memilih keputusan.')">Sholat Istikharah</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Hajat', 'Untuk memohon pertolongan Allah dalam menghadapi hajat atau kebutuhan penting.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Hajat', 'Untuk memohon pertolongan Allah dalam menghadapi hajat atau kebutuhan penting.')">Sholat Hajat</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Taubat', 'Untuk memohon ampun setelah melakukan dosa.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Taubat', 'Untuk memohon ampun setelah melakukan dosa.')">Sholat Taubat</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- D. Sholat Yang Dilarang Waktunya -->
+      <div class="accordion-item">
+        <div class="accordion-header" role="tab" tabindex="0" aria-expanded="false" aria-controls="makruh" id="makruh-header" onclick="toggleAccordion(event, 'makruh')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleAccordion(event, 'makruh')">D. Sholat yang Dilarang Waktunya (Makruh Waktu)</div>
+        <div class="accordion-content" role="tabpanel" aria-labelledby="makruh-header" id="makruh" aria-hidden="true">
+          <div class="sub-item" tabindex="0" onclick="showPopup('Waktu Makruh', 'Beberapa waktu dilarang melakukan sholat sunnah:\n\n- Setelah Subuh hingga matahari terbit.\n- Saat matahari tepat di tengah langit (zawal).\n- Setelah Ashar hingga matahari tenggelam.\n\nKecuali sholat fardhu atau yang memiliki sebab (seperti qadha atau tahiyatul masjid).')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Waktu Makruh', 'Beberapa waktu dilarang melakukan sholat sunnah:\n\n- Setelah Subuh hingga matahari terbit.\n- Saat matahari tepat di tengah langit (zawal).\n- Setelah Ashar hingga matahari tenggelam.\n\nKecuali sholat fardhu atau yang memiliki sebab (seperti qadha atau tahiyatul masjid).')">Penjelasan Waktu Makruh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-describedby="popup-description">
+    <div class="popup-content">
+      <span tabindex="0" id="popup-close" class="popup-close" role="button" aria-label="Tutup popup" onclick="closePopup()" onkeydown="if(event.key==='Enter' || event.key===' ') closePopup()">&times;</span>
+      <h2 id="popup-title"></h2>
+      <p id="popup-description"></p>
+    </div>
+  </div>
+
+  <script>
+    function toggleAccordion(e, id) {
+      const header = e.currentTarget;
+      const content = document.getElementById(id);
+      const isActive = header.classList.contains('active');
+
+      // Close all other accordions at same level
+      const allHeaders = header.parentNode.parentNode.querySelectorAll('.accordion-header');
+      allHeaders.forEach(h => {
+        if(h !== header){
+          h.classList.remove('active');
+          const cid = h.getAttribute('aria-controls');
+          if(cid){
+            document.getElementById(cid).style.display = 'none';
+            h.setAttribute('aria-expanded', 'false');
+            if(document.getElementById(cid)) document.getElementById(cid).setAttribute('aria-hidden', 'true');
+          }
+        }
+      });
+
+      if (!isActive) {
+        header.classList.add('active');
+        content.style.display = 'block';
+        header.setAttribute('aria-expanded', 'true');
+        content.setAttribute('aria-hidden', 'false');
+      } else {
+        header.classList.remove('active');
+        content.style.display = 'none';
+        header.setAttribute('aria-expanded', 'false');
+        content.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    function toggleSubAccordion(id) {
+      const el = document.getElementById(id);
+      if(!el) return;
+      const isVisible = el.style.display === 'block';
+
+      // If visible, hide it
+      if(isVisible) {
+        el.style.display = 'none';
+        el.setAttribute('aria-hidden', "true");
+      } else {
+        el.style.display = 'block';
+        el.setAttribute('aria-hidden', "false");
+      }
+    }
+
+    function showPopup(title, description) {
+      const popup = document.getElementById('popup');
+      document.getElementById('popup-title').textContent = title;
+      document.getElementById('popup-description').textContent = description;
+      popup.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      // Focus on close button for accessibility
+      const closeBtn = document.getElementById('popup-close');
+      if (closeBtn) closeBtn.fo
