@@ -5,319 +5,206 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Macam-macam Sholat</title>
 <style>
-  /* Reset and base */
+  /* Updated Base styling with image background */
   body {
-    background-color: #000;
-    color: #eee;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 20px;
-    overflow-x: hidden;
+    background-image: url('https://st2.depositphotos.com/1686288/7086/i/950/depositphotos_70867379-stock-photo-old-vintage-yellow-paper-background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #004400;
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 15px;
+  }
+  /* Adding a subtle background overlay to ensure text readability */
+  body::before {
+    content: "";
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.75);
+    pointer-events: none;
+    z-index: -1;
   }
 
   h1 {
     text-align: center;
-    font-weight: 900;
-    font-size: 3rem;
-    margin-bottom: 30px;
-    color: #0f0;
-    position: relative;
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #006600;
+    border-bottom: 3px solid #006600;
+    padding-bottom: 8px;
     user-select: none;
-  }
-  h1::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 15%;
-    width: 70%;
-    height: 3px;
-    background: linear-gradient(90deg, #0f0 0%, #00f 50%, #0f0 100%);
-    animation: glowing-line 3s linear infinite;
-    border-radius: 2px;
-  }
-
-  /* Glowing moving line animation */
-  @keyframes glowing-line {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
   }
 
   .container {
-    max-width: 900px;
-    margin: auto;
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255 255 255 / 0.85);
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
   }
 
   .accordion {
-    border: 2px solid #0f0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 15px #0f0 inset, 0 0 20px #00f inset;
+    border: 2px solid #006600;
+    border-radius: 8px;
+    background: #e6ffe6;
   }
 
   .accordion-item + .accordion-item {
-    border-top: 1px solid #0f0;
+    border-top: 1px solid #006600;
   }
 
   .accordion-header {
-    background-color: #111;
-    padding: 18px 25px;
+    background-color: #c8facc;
+    color: #004400;
     cursor: pointer;
+    padding: 15px 20px;
+    font-size: 1.1rem;
     font-weight: 700;
-    font-size: 1.25rem;
-    color: #0f0;
-    position: relative;
     user-select: none;
-    border-left: 10px solid transparent;
-    transition:
-      background-color 0.3s,
-      border-left-color 0.5s ease;
-    box-shadow: inset 0 0 10px #0f0;
+    position: relative;
   }
 
-  .accordion-header::before {
-    content: "";
+  .accordion-header::after {
+    content: '►';
     position: absolute;
-    top: 50%;
     right: 20px;
-    width: 12px;
-    height: 12px;
-    border-style: solid;
-    border-width: 2px 2px 0 0;
-    border-color: #0f0;
-    transform: translateY(-50%) rotate(45deg);
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
   }
 
-  .accordion-header.active {
-    background-color: #012600;
-    border-left-color: #00ff00;
-  }
-
-  .accordion-header.active::before {
-    transform: translateY(-50%) rotate(135deg);
+  .accordion-header.active::after {
+    transform: rotate(90deg);
   }
 
   .accordion-content {
     display: none;
-    background-color: #101a10;
+    background: #f0fff0;
     padding-left: 25px;
   }
 
   .sub-item {
-    border-left: 6px solid #008800;
-    padding: 10px 18px;
-    margin: 6px 12px;
-    font-weight: 600;
-    font-size: 1rem;
-    color: #6fdb6f;
+    padding: 8px 16px;
+    margin: 6px 0;
     cursor: pointer;
+    color: #007700;
+    font-weight: 600;
+    border-left: 4px solid #009900;
+    border-radius: 4px;
     user-select: none;
-    position: relative;
-    border-radius: 5px;
-    box-shadow: 0 0 12px #0f0 inset;
-    transition: background-color 0.25s;
   }
   .sub-item:hover {
-    background-color: #004000;
+    background-color: #ccffcc;
   }
 
   .sub-accordion-content {
-    margin-left: 16px;
-    margin-top: 6px;
-    border-left: 2px solid #00ff00;
+    margin-left: 12px;
     padding-left: 10px;
+    border-left: 2px solid #009900;
     display: none;
   }
 
-  /* Popup Styling */
+  /* Popup */
   .popup {
     display: none;
     position: fixed;
-    z-index: 9999;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(6px);
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(255,255,255,0.95);
     align-items: center;
     justify-content: center;
+    z-index: 10000;
   }
 
   .popup-content {
-    background: #000;
-    border: 3px solid #0f0;
-    border-radius: 15px;
-    padding: 25px 30px;
-    max-width: 460px;
-    color: #0f0;
-    box-shadow:
-      0 0 15px #0f0,
-      0 0 30px #00f;
-    position: relative;
-    font-size: 1rem;
-    line-height: 1.5;
-    user-select: none;
+    background-color: #e6ffe6;
+    color: #004400;
+    border: 2px solid #006600;
+    border-radius: 10px;
+    padding: 20px 25px;
+    max-width: 400px;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-sizing: border-box;
   }
 
   .popup-content h2 {
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.75rem;
-    text-shadow: 0 0 8px #0f0;
+    margin-bottom: 12px;
+    font-size: 1.5rem;
   }
 
   .popup-content p {
     white-space: pre-line;
+    font-size: 1rem;
+    line-height: 1.4;
   }
 
   .popup-close {
     position: absolute;
-    top: 12px;
-    right: 18px;
-    font-size: 28px;
-    color: #0f0;
+    top: 12px; right: 16px;
+    color: #004400;
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 1.6rem;
     cursor: pointer;
     user-select: none;
-    font-weight: bold;
-    text-shadow: 0 0 12px #0f0;
-    transition: color 0.3s ease;
   }
   .popup-close:hover {
-    color: #00f;
-    text-shadow: 0 0 20px #00f;
+    color: #007700;
   }
 
-  /* Animated glowing lines background */
-  body::before {
-    content: "";
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background:
-      repeating-linear-gradient(45deg, rgba(0,255,0,0.15) 0, rgba(0,255,0,0.15) 2px, transparent 2px, transparent 10px),
-      repeating-linear-gradient(-45deg, rgba(0,0,255,0.15) 0, rgba(0,0,255,0.15) 2px, transparent 2px, transparent 10px);
-    animation: moveBackground 20s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  @keyframes moveBackground {
-    0% {
-      background-position: 0 0, 0 0;
-    }
-    100% {
-      background-position: 100px 100px, -100px -100px;
-    }
-  }
-
-  /* Responsive styles */
-  @media (max-width: 900px) {
-    .container {
-      padding: 0 12px;
-      max-width: 100%;
-    }
-
-    .accordion-header {
-      font-size: 1.1rem;
-      padding: 14px 18px;
-      border-left-width: 7px;
-    }
-
-    .accordion-header::before {
-      width: 10px;
-      height: 10px;
-      right: 15px;
-      border-width: 2px 2px 0 0;
-    }
-
-    .accordion-content {
-      padding-left: 18px;
-    }
-
-    .sub-item {
-      font-size: 0.95rem;
-      padding: 8px 14px;
-      margin: 4px 8px;
-      border-left-width: 4px;
-      border-radius: 4px;
-    }
-
-    .sub-accordion-content {
-      margin-left: 12px;
-      padding-left: 8px;
-      border-left-width: 1.5px;
-    }
-
-    .popup-content {
-      max-width: 90vw;
-      padding: 20px 18px;
-      font-size: 0.95rem;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
+  /* Responsive */
+  @media (max-width: 600px) {
     body {
-      padding: 12px 10px;
+      padding: 10px;
     }
-
-    .accordion-header {
-      font-size: 1rem;
-      padding: 12px 15px;
-      border-left-width: 6px;
-    }
-
-    .accordion-header::before {
-      width: 9px;
-      height: 9px;
-      right: 12px;
-      border-width: 2px 2px 0 0;
-    }
-
-    .sub-item {
-      font-size: 0.88rem;
-      padding: 6px 12px;
-      margin: 3px 6px;
-      border-left-width: 3px;
-    }
-
-    .sub-accordion-content {
-      margin-left: 10px;
-      padding-left: 6px;
-      border-left-width: 1px;
-    }
-
-    .popup-content {
-      font-size: 0.9rem;
-      padding: 16px 14px;
-    }
-
     h1 {
       font-size: 1.8rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      border-bottom-width: 2px;
+    }
+    .container {
+      padding: 15px;
+    }
+    .accordion-header {
+      font-size: 1rem;
+      padding: 12px 16px;
+    }
+    .sub-item {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+    }
+    .popup-content {
+      max-width: 90vw;
+      max-height: 60vh;
+      padding: 15px;
+      font-size: 0.9rem;
     }
   }
 
-  /* Cursor pointer for keyboard accessibility */
-  .accordion-header,
-  .sub-item,
-  .popup-close {
-    cursor: pointer;
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+    .accordion-header {
+      font-size: 0.9rem;
+      padding: 10px 14px;
+    }
+    .sub-item {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+    }
   }
 </style>
 </head>
 <body>
-  <div class="container" style="position:relative; z-index:10;">
+  <div class="container" role="main">
     <h1>Macam-macam Sholat</h1>
     <div class="accordion" role="tablist" aria-multiselectable="true">
       <!-- A. Sholat Fardhu ‘Ain -->
@@ -331,12 +218,12 @@
           <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Isya', 'Dilakukan setelah Maghrib hingga masuk waktu Subuh.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Isya', 'Dilakukan setelah Maghrib hingga masuk waktu Subuh.')">Sholat Isya – 4 rakaat</div>
         </div>
       </div>
-      
+
       <!-- B. Sholat Fardhu Kifayah -->
       <div class="accordion-item">
         <div class="accordion-header" role="tab" tabindex="0" aria-expanded="false" aria-controls="fardhuKifayah" id="fardhuKifayah-header" onclick="toggleAccordion(event, 'fardhuKifayah')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleAccordion(event, 'fardhuKifayah')">B. Sholat Fardhu Kifayah</div>
         <div class="accordion-content" role="tabpanel" aria-labelledby="fardhuKifayah-header" id="fardhuKifayah" aria-hidden="true">
-          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Jenazah', 'Dikerjakan untuk mendoakan jenazah Muslim sebelum dikubur. Tidak ada ruku\' dan sujud, hanya berdiri dan membaca doa.\nHukum: Fardhu kifayah – jika tidak ada yang mengerjakan, seluruh komunitas berdosa.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Jenazah', 'Dikerjakan untuk mendoakan jenazah Muslim sebelum dikubur. Tidak ada ruku\' dan sujud, hanya berdiri dan membaca doa.\nHukum: Fardhu kifayah – jika tidak ada yang mengerjakan, seluruh komunitas berdosa.')">Sholat Jenazah</div>
+          <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Jenazah', 'Dikerjakan untuk mendoakan jenazah Muslim sebelum dikubur. Tidak ada ruku&#39; dan sujud, hanya berdiri dan membaca doa.\nHukum: Fardhu kifayah – jika tidak ada yang mengerjakan, seluruh komunitas berdosa.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Jenazah', 'Dikerjakan untuk mendoakan jenazah Muslim sebelum dikubur. Tidak ada ruku&#39; dan sujud, hanya berdiri dan membaca doa.\nHukum: Fardhu kifayah – jika tidak ada yang mengerjakan, seluruh komunitas berdosa.')">Sholat Jenazah</div>
         </div>
       </div>
 
@@ -350,15 +237,15 @@
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Witir', 'Dilakukan setelah sholat malam, jumlahnya ganjil (1, 3, 5, dst.)')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Witir', 'Dilakukan setelah sholat malam, jumlahnya ganjil (1, 3, 5, dst.)')">Sholat Witir</div>
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tahajud', 'Dilakukan di sepertiga malam terakhir setelah tidur.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tahajud', 'Dilakukan di sepertiga malam terakhir setelah tidur.')">Sholat Tahajud</div>
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tarawih', 'Dilakukan di malam bulan Ramadhan, biasanya berjamaah.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tarawih', 'Dilakukan di malam bulan Ramadhan, biasanya berjamaah.')">Sholat Tarawih</div>
-            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Istisqa’', 'Dilakukan untuk memohon hujan saat musim kering.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Istisqa’', 'Dilakukan untuk memohon hujan saat musim kering.')">Sholat Istisqa’</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Istisqa\u2019', 'Dilakukan untuk memohon hujan saat musim kering.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Istisqa\u2019', 'Dilakukan untuk memohon hujan saat musim kering.')">Sholat Istisqa\u2019</div>
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Gerhana', 'Sholat dua rakaat saat terjadi gerhana bulan (khusuf) atau matahari (kusuf), dengan bacaan panjang.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Gerhana', 'Sholat dua rakaat saat terjadi gerhana bulan (khusuf) atau matahari (kusuf), dengan bacaan panjang.')">Sholat Gerhana (Khusuf & Kusuf)</div>
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Hari Raya', 'Dua rakaat, dilaksanakan berjamaah di lapangan atau masjid.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Hari Raya', 'Dua rakaat, dilaksanakan berjamaah di lapangan atau masjid.')">Sholat Hari Raya (Idul Fitri & Idul Adha)</div>
           </div>
 
           <div class="sub-item" tabindex="0" onclick="toggleSubAccordion('sunnahGhairuMuakkad')" onkeydown="if(event.key==='Enter' || event.key===' ') toggleSubAccordion('sunnahGhairuMuakkad')">Sholat Sunnah Ghairu Muakkad ▸</div>
           <div class="sub-accordion-content" id="sunnahGhairuMuakkad" aria-hidden="true">
-            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Dhuha', 'Dilakukan pada pagi hari setelah matahari naik (sekitar pukul 07.00–11.00), 2 hingga 12 rakaat.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Dhuha', 'Dilakukan pada pagi hari setelah matahari naik (sekitar pukul 07.00–11.00), 2 hingga 12 rakaat.')">Sholat Dhuha</div>
-            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Awwabin', 'Dikerjakan setelah Maghrib, 2–6 rakaat.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Awwabin', 'Dikerjakan setelah Maghrib, 2–6 rakaat.')">Sholat Awwabin</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Dhuha', 'Dilakukan pada pagi hari setelah matahari naik (sekitar pukul 07.00\u201311.00), 2 hingga 12 rakaat.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Dhuha', 'Dilakukan pada pagi hari setelah matahari naik (sekitar pukul 07.00\u201311.00), 2 hingga 12 rakaat.')">Sholat Dhuha</div>
+            <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Awwabin', 'Dikerjakan setelah Maghrib, 2\u20136 rakaat.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Awwabin', 'Dikerjakan setelah Maghrib, 2\u20136 rakaat.')">Sholat Awwabin</div>
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tahiyatul Masjid', 'Sholat 2 rakaat saat masuk masjid sebelum duduk.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tahiyatul Masjid', 'Sholat 2 rakaat saat masuk masjid sebelum duduk.')">Sholat Tahiyatul Masjid</div>
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Tasbih', 'Sholat 4 rakaat dengan bacaan tasbih tertentu dalam setiap gerakan.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Tasbih', 'Sholat 4 rakaat dengan bacaan tasbih tertentu dalam setiap gerakan.')">Sholat Tasbih</div>
             <div class="sub-item" tabindex="0" onclick="showPopup('Sholat Mutlaq', 'Sholat sunnah yang dilakukan kapan saja tanpa sebab tertentu, kecuali di waktu yang dilarang.')" onkeydown="if(event.key==='Enter' || event.key===' ') showPopup('Sholat Mutlaq', 'Sholat sunnah yang dilakukan kapan saja tanpa sebab tertentu, kecuali di waktu yang dilarang.')">Sholat Mutlaq (Nafilah Mutlaq)</div>
@@ -379,69 +266,75 @@
     </div>
   </div>
 
-  <!-- Popup -->
-  <div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-describedby="popup-description">
+  <div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-describedby="popup-description" tabindex="0">
     <div class="popup-content">
-      <span tabindex="0" id="popup-close" class="popup-close" role="button" aria-label="Tutup popup" onclick="closePopup()" onkeydown="if(event.key==='Enter' || event.key===' ') closePopup()">&times;</span>
+      <button class="popup-close" aria-label="Tutup popup" onclick="closePopup()" onkeydown="if(event.key==='Enter' || event.key===' ') closePopup()">&times;</button>
       <h2 id="popup-title"></h2>
       <p id="popup-description"></p>
     </div>
   </div>
 
-  <script>
-    function toggleAccordion(e, id) {
-      const header = e.currentTarget;
-      const content = document.getElementById(id);
-      const isActive = header.classList.contains('active');
+<script>
+  function toggleAccordion(e, id) {
+    const header = e.currentTarget;
+    const content = document.getElementById(id);
+    const isActive = header.classList.contains('active');
 
-      // Close all other accordions at same level
-      const allHeaders = header.parentNode.parentNode.querySelectorAll('.accordion-header');
-      allHeaders.forEach(h => {
-        if(h !== header){
-          h.classList.remove('active');
-          const cid = h.getAttribute('aria-controls');
-          if(cid){
-            document.getElementById(cid).style.display = 'none';
-            h.setAttribute('aria-expanded', 'false');
-            if(document.getElementById(cid)) document.getElementById(cid).setAttribute('aria-hidden', 'true');
-          }
+    // Close others at the same level
+    const allHeaders = header.parentNode.parentNode.querySelectorAll('.accordion-header');
+    allHeaders.forEach(h => {
+      if (h !== header) {
+        h.classList.remove('active');
+        const cid = h.getAttribute('aria-controls');
+        if(cid) {
+          document.getElementById(cid).style.display = 'none';
+          h.setAttribute('aria-expanded', 'false');
+          document.getElementById(cid).setAttribute('aria-hidden', 'true');
         }
-      });
-
-      if (!isActive) {
-        header.classList.add('active');
-        content.style.display = 'block';
-        header.setAttribute('aria-expanded', 'true');
-        content.setAttribute('aria-hidden', 'false');
-      } else {
-        header.classList.remove('active');
-        content.style.display = 'none';
-        header.setAttribute('aria-expanded', 'false');
-        content.setAttribute('aria-hidden', 'true');
       }
+    });
+
+    if(!isActive){
+      header.classList.add('active');
+      content.style.display = 'block';
+      header.setAttribute('aria-expanded', 'true');
+      content.setAttribute('aria-hidden', 'false');
+    } else {
+      header.classList.remove('active');
+      content.style.display = 'none';
+      header.setAttribute('aria-expanded', 'false');
+      content.setAttribute('aria-hidden', 'true');
     }
+  }
 
-    function toggleSubAccordion(id) {
-      const el = document.getElementById(id);
-      if(!el) return;
-      const isVisible = el.style.display === 'block';
+  function toggleSubAccordion(id) {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const visible = el.style.display === 'block';
+    el.style.display = visible ? 'none' : 'block';
+    el.setAttribute('aria-hidden', visible ? 'true' : 'false');
+  }
 
-      // If visible, hide it
-      if(isVisible) {
-        el.style.display = 'none';
-        el.setAttribute('aria-hidden', "true");
-      } else {
-        el.style.display = 'block';
-        el.setAttribute('aria-hidden', "false");
-      }
-    }
+  function showPopup(title, description) {
+    const popup = document.getElementById('popup');
+    document.getElementById('popup-title').textContent = title;
+    document.getElementById('popup-description').textContent = description;
+    popup.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    const closeBtn = popup.querySelector('.popup-close');
+    if (closeBtn) closeBtn.focus();
+  }
 
-    function showPopup(title, description) {
-      const popup = document.getElementById('popup');
-      document.getElementById('popup-title').textContent = title;
-      document.getElementById('popup-description').textContent = description;
-      popup.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      // Focus on close button for accessibility
-      const closeBtn = document.getElementById('popup-close');
-      if (closeBtn) closeBtn.fo
+  function closePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closePopup();
+  });
+</script>
+</body>
+</html>
+
