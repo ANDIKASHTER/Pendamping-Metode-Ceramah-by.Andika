@@ -606,29 +606,43 @@
             videoContainer.innerHTML = '';
             
            if (correctAnswers > 15) {
-    // Menang → tampilkan win.mp4
+    // Menang → embed YouTube win
     resultMessage.textContent = 'MENYALA ABANGDA🔥';
     videoContainer.innerHTML = `
-        <video width="100%" autoplay muted playsinline controls>
-            <source src="https://username.github.io/reponame/assets/videos/win.mp4" type="video/mp4">
-            Browser kamu tidak mendukung video tag.
-        </video>
-        <p style="color: #b8b8d4; margin-top: 10px;">
-            Jika video tidak otomatis diputar, silakan klik tombol play.
-        </p>
+        <div style="max-width:900px; margin:0 auto; text-align:center;">
+            <iframe
+                width="100%"
+                height="500"
+                src="https://www.youtube.com/embed/mh12jQ-cLPE?autoplay=1&mute=1&playsinline=1&rel=0"
+                title="YouTube video player"
+                frameborder="0"
+                allow="autoplay; encrypted-media; accelerometer; clipboard-write; clipboard-read; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+            <p style="color: #b8b8d4; margin-top: 10px;">
+                Jika video tidak otomatis diputar, <a href="https://youtu.be/mh12jQ-cLPE" target="_blank" rel="noopener" style="color:#ffd700;">buka di YouTube</a>.
+            </p>
+        </div>
     `;
 } else {
-    // Kalah → tampilkan lose.mp4
+    // Kalah → embed YouTube lose
     resultMessage.textContent = `Kegagalan hari ini adalah keberhasilan di masa yang mendatang,
 #No Paint No Gain`;
     videoContainer.innerHTML = `
-        <video width="100%" autoplay muted playsinline controls>
-            <source src="https://username.github.io/reponame/assets/videos/lose.mp4" type="video/mp4">
-            Browser kamu tidak mendukung video tag.
-        </video>
-        <p style="color: #b8b8d4; margin-top: 10px;">
-            Jika video tidak otomatis diputar, silakan klik tombol play.
-        </p>
+        <div style="max-width:900px; margin:0 auto; text-align:center;">
+            <iframe
+                width="100%"
+                height="500"
+                src="https://www.youtube.com/embed/FrCQk-rfIjQ?autoplay=1&mute=1&playsinline=1&rel=0"
+                title="YouTube video player"
+                frameborder="0"
+                allow="autoplay; encrypted-media; accelerometer; clipboard-write; clipboard-read; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+            <p style="color: #b8b8d4; margin-top: 10px;">
+                Jika video tidak otomatis diputar, <a href="https://youtu.be/FrCQk-rfIjQ" target="_blank" rel="noopener" style="color:#ffd700;">buka di YouTube</a>.
+            </p>
+        </div>
     `;
 }
 
@@ -667,4 +681,5 @@
         });
     </script>
 </body>
+
 </html>
