@@ -376,21 +376,22 @@ function exitApp() {
  
 
         // Navigate to game with smooth transition
-        function navigateToGame(event, url) {
-            event.preventDefault();
-            
-            // Add click effect
-            const card = event.currentTarget;
-            card.style.transform = 'translateY(-10px) scale(0.95)';
-            
-            setTimeout(() => {
-                card.style.transform = 'translateY(-10px) scale(1.05)';
-                
-                setTimeout(() => {
-                   window.location.href = url; // arahkan ke halaman tujuan
-        }, 300);
-    }, 150);
-        }
+function navigateToGame(event, url) {
+    event.preventDefault();
+
+    // Add click effect
+    const card = event.currentTarget;
+    card.style.transform = 'translateY(-10px) scale(0.95)';
+
+    setTimeout(() => {
+        card.style.transform = 'translateY(-10px) scale(1.05)';
+
+        setTimeout(() => {
+            window.location.href = url; // pindah ke halaman tujuan
+        }, 300); // delay sebelum masuk
+    }, 150); // delay efek animasi awal
+}
+
 
         // Loading screen
         window.addEventListener('load', function() {
@@ -461,6 +462,7 @@ function exitApp() {
 </body>
 
 </html>
+
 
 
 
