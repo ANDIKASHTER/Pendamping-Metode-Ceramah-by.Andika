@@ -605,40 +605,42 @@
             // Clear previous video
             videoContainer.innerHTML = '';
             
-           if (correctAnswers > 15) {
+        if (correctAnswers > 15) {
     // Menang → reward win
     resultMessage.textContent = 'MENYALA ABANGDA🔥';
     videoContainer.innerHTML = `
-        <div style="max-width:900px; margin:0 auto; text-align:center;">
-            <div id="coverWin" style="position:relative; cursor:pointer;">
-                <img src="https://img.youtube.com/vi/mh12jQ-cLPE/hqdefault.jpg" 
-                     alt="Reward Video" style="width:100%; border-radius:12px;">
-                <button id="claimWin" 
-                        style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-                               background:#ffd700; color:#000; border:none; padding:12px 24px;
-                               font-size:18px; font-weight:bold; border-radius:8px; cursor:pointer;
-                               box-shadow:0 4px 8px rgba(0,0,0,0.3);">
+        <div style="max-width:900px; margin:0 auto; text-align:center; position:relative;">
+            <!-- Video YouTube (terlihat tapi ketutupan overlay) -->
+            <iframe id="winVideo"
+                width="100%" height="500"
+                src="https://www.youtube.com/embed/mh12jQ-cLPE?controls=1&modestbranding=1&rel=0&playsinline=1"
+                title="YouTube video player"
+                frameborder="0"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+                style="border-radius:12px;">
+            </iframe>
+
+            <!-- Overlay tombol -->
+            <div id="overlayWin" style="
+                position:absolute; top:0; left:0; width:100%; height:100%;
+                background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center;
+                border-radius:12px; cursor:pointer;">
+                <button id="claimWin"
+                    style="background:#ffd700; color:#000; border:none; padding:14px 28px;
+                           font-size:20px; font-weight:bold; border-radius:10px; cursor:pointer;
+                           box-shadow:0 4px 12px rgba(0,0,0,0.4);">
                     🎁 Claim Reward
                 </button>
             </div>
-            <iframe id="winVideo" 
-                width="100%" height="500"
-                src="" 
-                title="YouTube video player"
-                frameborder="0"
-                allow="autoplay; encrypted-media; accelerometer; clipboard-write; clipboard-read; picture-in-picture"
-                allowfullscreen
-                style="display:none; border-radius:12px;">
-            </iframe>
         </div>
     `;
 
-    // Script untuk tombol claim (MENANG)
+    // Script tombol claim (MENANG)
     document.getElementById('claimWin').addEventListener('click', () => {
-        document.getElementById('coverWin').style.display = 'none';
+        document.getElementById('overlayWin').style.display = 'none'; // hilangkan overlay
         const winVid = document.getElementById('winVideo');
-        winVid.src = "https://www.youtube.com/embed/mh12jQ-cLPE?autoplay=1&controls=1&modestbranding=1&rel=0&playsinline=1";
-        winVid.style.display = "block";
+        winVid.src += "&autoplay=1"; // tambahkan autoplay agar play otomatis
     });
 
 } else {
@@ -646,39 +648,40 @@
     resultMessage.textContent = `Kegagalan hari ini adalah keberhasilan di masa yang mendatang,
 #No Paint No Gain`;
     videoContainer.innerHTML = `
-        <div style="max-width:900px; margin:0 auto; text-align:center;">
-            <div id="coverLose" style="position:relative; cursor:pointer;">
-                <img src="https://img.youtube.com/vi/FrCQk-rfIjQ/hqdefault.jpg" 
-                     alt="Reward Video" style="width:100%; border-radius:12px;">
-                <button id="claimLose" 
-                        style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-                               background:#ffd700; color:#000; border:none; padding:12px 24px;
-                               font-size:18px; font-weight:bold; border-radius:8px; cursor:pointer;
-                               box-shadow:0 4px 8px rgba(0,0,0,0.3);">
+        <div style="max-width:900px; margin:0 auto; text-align:center; position:relative;">
+            <!-- Video YouTube -->
+            <iframe id="loseVideo"
+                width="100%" height="500"
+                src="https://www.youtube.com/embed/FrCQk-rfIjQ?controls=1&modestbranding=1&rel=0&playsinline=1"
+                title="YouTube video player"
+                frameborder="0"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+                style="border-radius:12px;">
+            </iframe>
+
+            <!-- Overlay tombol -->
+            <div id="overlayLose" style="
+                position:absolute; top:0; left:0; width:100%; height:100%;
+                background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center;
+                border-radius:12px; cursor:pointer;">
+                <button id="claimLose"
+                    style="background:#ffd700; color:#000; border:none; padding:14px 28px;
+                           font-size:20px; font-weight:bold; border-radius:10px; cursor:pointer;
+                           box-shadow:0 4px 12px rgba(0,0,0,0.4);">
                     🎁 Claim Reward
                 </button>
             </div>
-            <iframe id="loseVideo" 
-                width="100%" height="500"
-                src="" 
-                title="YouTube video player"
-                frameborder="0"
-                allow="autoplay; encrypted-media; accelerometer; clipboard-write; clipboard-read; picture-in-picture"
-                allowfullscreen
-                style="display:none; border-radius:12px;">
-            </iframe>
         </div>
     `;
 
-    // Script untuk tombol claim (KALAH)
+    // Script tombol claim (KALAH)
     document.getElementById('claimLose').addEventListener('click', () => {
-        document.getElementById('coverLose').style.display = 'none';
+        document.getElementById('overlayLose').style.display = 'none'; // hilangkan overlay
         const loseVid = document.getElementById('loseVideo');
-        loseVid.src = "https://www.youtube.com/embed/FrCQk-rfIjQ?autoplay=1&controls=1&modestbranding=1&rel=0&playsinline=1";
-        loseVid.style.display = "block";
+        loseVid.src += "&autoplay=1"; // tambahkan autoplay agar play otomatis
     });
 }
-
 
             
             modal.style.display = 'block';
@@ -717,5 +720,6 @@
 </body>
 
 </html>
+
 
 
