@@ -391,12 +391,7 @@ function exitApp() {
                     const link = document.createElement('a');
                     link.href = url;
                     link.onclick = function() {
-                        // If the file doesn't exist, show alert
-                        setTimeout(() => {
-                            if (document.title === 'Game Center Halal Mode') {
-                                alert(`File ${url} belum tersedia. Silakan buat file game terlebih dahulu.`);
-                            }
-                        }, 100);
+                      
                     };
                     link.click();
                 }, 150);
@@ -472,4 +467,5 @@ function exitApp() {
 </body>
 
 </html>
+
 
