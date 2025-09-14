@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Game Halal Mode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .game-container {
+            position: relative;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .exit-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .exit-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #4169e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .instructions {
+            font-size: 1.1rem;
+            color: #b8b8d4;
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .score-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            z-index: 100;
+        }
+
+        .score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .remaining {
+            font-size: 0.9rem;
+            color: #b8b8d4;
+            margin-top: 5px;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4169e1, #6a5acd);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(65, 105, 225, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(65, 105, 225, 0.5);
+        }
+
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .items-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 400px;
+        }
+
+        .items-title {
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .prayer-item {
+            background: linear-gradient(135deg, #2d1b69, #4169e1);
+            border: 2px solid #6a5acd;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: grab;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prayer-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(106, 90, 205, 0.6);
+            border-color: #ffd700;
+        }
+
+        .prayer-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .houses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .house {
+            background: rgba(0, 0, 0, 0.4);
+            border: 3px solid #ffd700;
+            border-radius: 15px;
+            padding: 15px;
+            min-height: 150px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .house:hover {
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+            border-color: #ff8c00;
+        }
+
+        .house.drag-over {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ff8c00;
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.6);
+        }
+
+        .house-icon {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .house-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .house-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            min-height: 60px;
+        }
+
+        .house-item {
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #ffd700;
+            border-radius: 5px;
+            padding: 5px 8px;
+            font-size: 0.8rem;
+            color: #ffd700;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #4169e1, #6a5acd);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(65, 105, 225, 0.8);
+            animation: popupAnim 1s ease-out;
+        }
+
+        @keyframes popupAnim {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #0f0f23, #2d1b69);
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .modal .score-display {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .modal .message {
+            font-size: 1.2rem;
+            color: #b8b8d4;
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        .modal iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            background: #ff6b6b;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .game-area {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .houses-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .score-panel {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <button class="exit-btn" onclick="exitGame()">Keluar</button>
+            <h1 class="title">🕌 Mini Game Halal Mode 🕌</h1>
+            <p class="instructions">
+                Tarik dan letakkan setiap sholat ke rumah yang sesuai. Benar = +5, Salah = -2.
+            </p>
+        </div>
+
+        <div class="score-panel">
+            <div class="score">Skor: <span id="score">0</span></div>
+            <div class="remaining">Tersisa: <span id="remaining">20</span> item</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="resetGame()">Reset</button>
+            <button class="btn" onclick="finishGame()">Selesai</button>
+        </div>
+
+        <div class="game-area">
+            <div class="items-container">
+                <h3 class="items-title">Jenis Sholat</h3>
+                <div class="items-grid" id="itemsGrid">
+                    <!-- Items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="houses-container" id="housesContainer">
+                <!-- Houses will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <h2>Hasil Permainan</h2>
+            <div class="score-display" id="finalScore"></div>
+            <div class="message" id="resultMessage"></div>
+            <div id="videoContainer"></div>
+            <button class="close-modal" onclick="closeModal()">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Game data and state
+        let score = 0;
+        let wrongAnswers = 0;
+        let correctAnswers = 0;
+        let remainingItems = 20;
+
+        // Prayer items data
+        const prayerItems = [
+    'Istikharah', 'Subuh', 'Gerhana (Khusuf & Kusuf)', 'Rawatib',
+    'Tahiyatul Masjid', 'Maghrib', 'Hajat', 'Isya',
+    'Tahajud', 'Tarawih', 'Ashar', 'Tasbih',
+    'Mutlaq (Nafilah Mutlaq)', 'Hari Raya (Idul Fitri & Idul Adha)',
+    'Dhuha', 'Sholat Jenazah', 'Witir', 'Zuhur',
+    'Awwabin', 'Istisqa\''
+];
+
+        // Houses data
+        const houses = [
+            {
+                id: 'fardhu-ain',
+                title: 'Fardhu \'Ain',
+                icon: '🏠',
+                correctItems: ['Subuh', 'Zuhur', 'Ashar', 'Maghrib', 'Isya']
+            },
+            {
+                id: 'fardhu-kifayah',
+                title: 'Fardhu Kifayah',
+                icon: '🏘️',
+                correctItems: ['Sholat Jenazah']
+            },
+            {
+                id: 'sunnah-muakkad',
+                title: 'Sunnah Muakkad',
+                icon: '🏡',
+                correctItems: ['Rawatib', 'Witir', 'Tahajud', 'Tarawih', 'Istisqa\'', 'Gerhana (Khusuf & Kusuf)', 'Hari Raya (Idul Fitri & Idul Adha)']
+            },
+            {
+                id: 'sunnah-ghairu-muakkad',
+                title: 'Sunnah Ghairu Muakkad',
+                icon: '🏚️',
+                correctItems: ['Dhuha', 'Awwabin', 'Tahiyatul Masjid', 'Tasbih', 'Mutlaq (Nafilah Mutlaq)', 'Istikharah', 'Hajat']
+            },
+            {
+                id: 'tidak tahu',
+                title: 'Tidak tahu',
+                icon: '🏭',
+                correctItems: []
+            }
+        ];
+
+        // Initialize game
+        function initGame() {
+            createPrayerItems();
+            createHouses();
+            updateScore();
+        }
+
+        // Create prayer items
+        function createPrayerItems() {
+            const itemsGrid = document.getElementById('itemsGrid');
+            itemsGrid.innerHTML = '';
+            
+            prayerItems.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'prayer-item';
+                itemElement.draggable = true;
+                itemElement.textContent = item;
+                itemElement.dataset.prayer = item;
+                itemElement.id = `item-${index}`;
+                
+                // Drag events
+                itemElement.addEventListener('dragstart', handleDragStart);
+                itemElement.addEventListener('dragend', handleDragEnd);
+                
+                itemsGrid.appendChild(itemElement);
+            });
+        }
+
+        // Create houses
+        function createHouses() {
+            const housesContainer = document.getElementById('housesContainer');
+            housesContainer.innerHTML = '';
+            
+            houses.forEach(house => {
+                const houseElement = document.createElement('div');
+                houseElement.className = 'house';
+                houseElement.dataset.houseId = house.id;
+                
+                houseElement.innerHTML = `
+                    <div class="house-icon">${house.icon}</div>
+                    <div class="house-title">${house.title}</div>
+                    <div class="house-items" id="house-${house.id}"></div>
+                `;
+                
+                // Drop events
+                houseElement.addEventListener('dragover', handleDragOver);
+                houseElement.addEventListener('drop', handleDrop);
+                houseElement.addEventListener('dragenter', handleDragEnter);
+                houseElement.addEventListener('dragleave', handleDragLeave);
+                
+                housesContainer.appendChild(houseElement);
+            });
+        }
+
+        // Drag and drop handlers
+        let draggedItem = null;
+
+        function handleDragStart(e) {
+            draggedItem = e.target;
+            e.target.classList.add('dragging');
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        function handleDragEnter(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            
+            if (!draggedItem) return;
+            
+            const houseId = e.currentTarget.dataset.houseId;
+            const prayerName = draggedItem.dataset.prayer;
+            
+            // Check if correct
+            const house = houses.find(h => h.id === houseId);
+            const isCorrect = house.correctItems.includes(prayerName);
+            
+            // Update score
+            if (isCorrect) {
+                score += 5;
+                correctAnswers++;
+                showPopup('+5', '#4caf50');
+            } else {
+                score -= 2;
+                wrongAnswers++;
+                showPopup('-2', '#f44336');
+            }
+            
+            // Move item to house
+            const houseItems = document.getElementById(`house-${houseId}`);
+            const houseItem = document.createElement('div');
+            houseItem.className = 'house-item';
+            houseItem.textContent = prayerName;
+            houseItems.appendChild(houseItem);
+            
+            // Remove from items grid
+            draggedItem.remove();
+            remainingItems--;
+            
+            updateScore();
+            
+            // Check if game finished
+            if (remainingItems === 0) {
+                setTimeout(() => {
+                    finishGame();
+                }, 1000);
+            }
+        }
+
+        // Show popup animation
+        function showPopup(text, color) {
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            popup.textContent = text;
+            popup.style.color = color;
+            document.body.appendChild(popup);
+            
+            setTimeout(() => {
+                popup.remove();
+            }, 1000);
+        }
+
+        // Update score display
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('remaining').textContent = remainingItems;
+        }
+
+        // Reset game
+        function resetGame() {
+            score = 0;
+            wrongAnswers = 0;
+            correctAnswers = 0;
+            remainingItems = 20;
+            
+            // Clear houses
+            houses.forEach(house => {
+                document.getElementById(`house-${house.id}`).innerHTML = '';
+            });
+            
+            // Recreate items
+            createPrayerItems();
+            updateScore();
+        }
+
+        // Finish game
+        function finishGame() {
+            const modal = document.getElementById('resultModal');
+            const finalScore = document.getElementById('finalScore');
+            const resultMessage = document.getElementById('resultMessage');
+            const videoContainer = document.getElementById('videoContainer');
+            
+            finalScore.textContent = `Skor Akhir: ${score}`;
+            
+            // Clear previous video
+            videoContainer.innerHTML = '';
+            
+           if (correctAnswers > 15) {
+    // Menang → tampilkan win.mp4
+    resultMessage.textContent = 'MENYALA ABANGDA🔥';
+    videoContainer.innerHTML = `
+        <video width="100%" autoplay muted playsinline controls>
+            <source src="https://username.github.io/reponame/assets/videos/win.mp4" type="video/mp4">
+            Browser kamu tidak mendukung video tag.
+        </video>
+        <p style="color: #b8b8d4; margin-top: 10px;">
+            Jika video tidak otomatis diputar, silakan klik tombol play.
+        </p>
+    `;
+} else {
+    // Kalah → tampilkan lose.mp4
+    resultMessage.textContent = `Kegagalan hari ini adalah keberhasilan di masa yang mendatang,
+#No Paint No Gain`;
+    videoContainer.innerHTML = `
+        <video width="100%" autoplay muted playsinline controls>
+            <source src="https://username.github.io/reponame/assets/videos/lose.mp4" type="video/mp4">
+            Browser kamu tidak mendukung video tag.
+        </video>
+        <p style="color: #b8b8d4; margin-top: 10px;">
+            Jika video tidak otomatis diputar, silakan klik tombol play.
+        </p>
+    `;
+}
+
+            
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
+
+        // Exit game
+        function exitGame() {
+            if (confirm('Apakah Anda yakin ingin keluar dari game?')) {
+                // Try to close window, fallback to reset
+                try {
+                    window.close();
+                } catch (e) {
+                    // If can't close window, reset game instead
+                    resetGame();
+                    alert('Game telah direset. Silakan refresh halaman untuk keluar sepenuhnya.');
+                }
+            }
+        }
+
+        // Initialize game when page loads
+        window.addEventListener('load', initGame);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('resultModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

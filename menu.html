@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Center Halal Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Islamic geometric pattern background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(0, 191, 255, 0.1) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 215, 0, 0.05) 20px, rgba(255, 215, 0, 0.05) 40px),
+                repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(0, 191, 255, 0.05) 20px, rgba(0, 191, 255, 0.05) 40px);
+            z-index: -1;
+        }
+
+        /* Animated stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00bfff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .exit-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+            z-index: 1000;
+        }
+
+        .exit-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 71, 87, 0.8);
+        }
+
+        .title {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #00bfff, #ffd700, #00bfff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(0, 191, 255, 0.5);
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(0, 191, 255, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+
+        .game-card {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 191, 255, 0.1), rgba(255, 215, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .game-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00bfff, #ffd700, #00bfff, #ffd700);
+            background-size: 300% 300%;
+            border-radius: 22px;
+            z-index: -2;
+            opacity: 0;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 191, 255, 0.3),
+                0 0 60px rgba(255, 215, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-card:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.5));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .game-card:nth-child(2) .game-icon {
+            animation-delay: 1.5s;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00bfff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .game-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .credit {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            opacity: 0.6;
+            font-weight: 400;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .game-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                max-width: 400px;
+            }
+            
+            .game-card {
+                padding: 1.5rem;
+            }
+            
+            .exit-btn {
+                top: 15px;
+                right: 15px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .credit {
+                bottom: 15px;
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 191, 255, 0.3);
+            border-top: 3px solid #00bfff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="loader"></div>
+    </div>
+
+    <div class="stars" id="stars"></div>
+
+    <button class="exit-btn" onclick="exitApp()">Keluar</button>
+
+    <div class="container">
+        <h1 class="title">Game Center Halal Mode</h1>
+        
+        <div class="game-grid">
+            <a href="game.html" class="game-card" onclick="navigateToGame(event, 'game.html')">
+                <span class="game-icon">🎭</span>
+                <h2 class="game-title">Truth or Dare Interaktif</h2>
+                <p class="game-description">Mainkan tantangan seru bersama teman-teman!</p>
+            </a>
+            
+            <a href="minigame.html" class="game-card" onclick="navigateToGame(event, 'minigame.html')">
+                <span class="game-icon">🎮</span>
+                <h2 class="game-title">Mini Game Halal Mode</h2>
+                <p class="game-description">Uji pengetahuan sholatmu dengan cara yang asik!</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="credit">Powered by Andika</div>
+
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 50;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Exit application function
+        function exitApp() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                try {
+                    window.close();
+                } catch (e) {
+                    alert('Tidak dapat menutup jendela secara otomatis. Silakan tutup tab ini secara manual.');
+                }
+            }
+        }
+
+        // Navigate to game with smooth transition
+        function navigateToGame(event, url) {
+            event.preventDefault();
+            
+            // Add click effect
+            const card = event.currentTarget;
+            card.style.transform = 'translateY(-10px) scale(0.95)';
+            
+            setTimeout(() => {
+                card.style.transform = 'translateY(-10px) scale(1.05)';
+                
+                setTimeout(() => {
+                    // Check if file exists (basic check)
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.onclick = function() {
+                        // If the file doesn't exist, show alert
+                        setTimeout(() => {
+                            if (document.title === 'Game Center Halal Mode') {
+                                alert(`File ${url} belum tersedia. Silakan buat file game terlebih dahulu.`);
+                            }
+                        }, 100);
+                    };
+                    link.click();
+                }, 150);
+            }, 100);
+        }
+
+        // Loading screen
+        window.addEventListener('load', function() {
+            createStars();
+            
+            setTimeout(() => {
+                const loading = document.getElementById('loading');
+                loading.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                exitApp();
+            }
+            
+            if (e.key === '1') {
+                document.querySelector('a[href="game.html"]').click();
+            }
+            
+            if (e.key === '2') {
+                document.querySelector('a[href="minigame.html"]').click();
+            }
+        });
+
+        // Add touch feedback for mobile
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('touchend', function() {
+                this.style.transform = 'translateY(-10px) scale(1.05)';
+            });
+        });
+
+        // Smooth scroll prevention for better UX
+        document.addEventListener('wheel', function(e) {
+            if (Math.abs(e.deltaY) > 50) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Add performance optimization
+        let ticking = false;
+        function updateAnimations() {
+            // Update any performance-heavy animations here
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateAnimations);
+                ticking = true;
+            }
+        }
+
+        // Console welcome message
+        console.log('%c🕌 Game Center Halal Mode 🎮', 'color: #00bfff; font-size: 20px; font-weight: bold;');
+        console.log('%cSelamat datang di pusat game halal!', 'color: #ffd700; font-size: 14px;');
+        console.log('%cGunakan keyboard: ESC (keluar), 1 (Truth or Dare), 2 (Mini Game)', 'color: #ffffff; font-size: 12px;');
+    </script>
+</body>
+</html>
