@@ -367,13 +367,13 @@
             }
         }
 
-        // Exit application function
-        function exitApp() {
-            if (confirm('Apakah Anda yakin ingin keluar?')) {
-                try {
-                    window.close();
-                } catch (e) {
-                    alert('Tidak dapat menutup jendela secara otomatis. Silakan tutup tab ini secara manual.');
+      // Exit application function
+function exitApp() {
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+        window.location.href = "macam.html";
+    }
+}
+
                 }
             }
         }
@@ -473,4 +473,5 @@
         console.log('%cGunakan keyboard: ESC (keluar), 1 (Truth or Dare), 2 (Mini Game)', 'color: #ffffff; font-size: 12px;');
     </script>
 </body>
+
 </html>
